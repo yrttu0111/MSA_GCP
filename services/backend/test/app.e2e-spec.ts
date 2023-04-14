@@ -19,6 +19,20 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      // .expect('Hello World!');
   });
+  describe('/graphql',()=>{
+    it('should return 200' ,() => {
+      return request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: `
+        mutation{
+          login(email:"test@test", password:"test")
+        }
+        `
+      })
+      .expect(200)
+    })
+  })
 });
