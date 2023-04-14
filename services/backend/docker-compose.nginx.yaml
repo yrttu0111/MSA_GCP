@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  
+  my-nginx:
+    image: nginx:latest
+    volumes:
+      - ../frontend/html.prod:/usr/share/nginx/html
+    ports:
+      - 80:80

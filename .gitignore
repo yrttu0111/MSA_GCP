@@ -1,0 +1,6 @@
+node_modules
+.env*
+gcp-bigquery
+gcp-file-storage.json
+gcp-bigquery.json
+gcp*.json
