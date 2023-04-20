@@ -1,8 +1,9 @@
-// eslint-disable-next-line no-unde
+// eslint-disable-next-line no-undef
 // import { io } from "socket.io-client";
-const socket = io(
-  {path: "/socket/"},
-);
+
+const socket = io({
+  path: "/socket/"
+});
 
 const welcome = document.getElementById("welcome");
 const enterForm = welcome.querySelector("form");
@@ -21,7 +22,7 @@ const addMessage = (message) => {
 
 const handleNicknameSubmit = (event) => {
   event.preventDefault();
-  const input = room.querySelector("#name input"); 
+  const input = room.querySelector("#name input");
   socket.emit("nickname", input.value);
 };
 

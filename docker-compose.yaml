@@ -12,12 +12,14 @@ services:
     # ports:
     #   - 3000:3000
 
-  socket-service:
+  socket:
     build:
       context: ./services/socket
       dockerfile: Dockerfile
     volumes:
       - ./services/socket/src:/socket/src
+    ports:
+      - 3002:3002
       
   api-gateway:
     image: nginx:latest

@@ -24,8 +24,8 @@ export class ProductSubscriber implements EntitySubscriberInterface<Product> {
     console.log(event);
 
     const bigQuery = new BigQuery({
-      keyFilename: 'gcp-bigquery.json',
-      projectId: 'thinking-device-380708',
+      keyFilename: process.env.GCP_BIGQUERYKYEFILE,
+      projectId: process.env.GCP_PROJECTID,
     });
     event.entity;
 

@@ -2,18 +2,57 @@ import http from "http";
 import express from "express";
 import path from 'path';
 import { Server } from "socket.io";
+import {instrument} from "@socket.io/admin-ui";
+import { createAdapter } from "@socket.io/redis-adapter";
+import { createClient } from "redis";
+
 const __dirname = path.resolve();
 const app = express();
+const pubClient = createClient({ url: "redis://redis:6379" });
+const subClient = pubClient.duplicate();
+
 
 app.set("view engine", "pug");
 app.set("views", __dirname + "/src/views");
 app.use("/public", express.static(__dirname + "/src/public"));
 app.get("/socket", (_, res) => res.render("home"));
-app.get("/socket/*", (_, res) => res.redirect("/socket/"));
+app.get("/socket/*", (_, res) => res.redirect("/"));
 
 const httpServer = http.createServer(app);
 // const wss = new WebSocketServer({ server });
-const wsServer = new Server(httpServer);
+const wsServer = new Server(httpServer, {
+  // path: "/socket/",
+  cors: {
+    // origin: "*",
+    origin: ["https://admin.socket.io"],
+    credentials: true,
+  },
+});
+
+// wsServer.adapter(createAdapter(pubClient, subClient));
+
+
+instrument(wsServer, {
+  auth: false,
+});
+
+function publicRooms() {
+  const {
+    sockets: {
+      adapter: { sids, rooms },
+    },
+  } = wsServer;
+  const publicRooms = [];
+  rooms.forEach((_, key) => {
+  if(sids.get(key)=== undefined){
+    publicRooms.push(key);
+  }
+});
+return publicRooms;
+}
+function countRoom(roomName){
+  return wsServer.sockets.adapter.rooms.get(roomName)?.size;
+}
 
 
 wsServer.on("connection", (socket) => {
@@ -23,13 +62,13 @@ wsServer.on("connection", (socket) => {
   socket.on("enter_room", (roomName, nickname, done) => {
     socket["nickname"] = nickname;
     socket.join(roomName);
-    socket.to(roomName).emit("welcome", socket.nickname);
-    done();
+    socket.to(roomName).emit("welcome", socket.nickname,countRoom(roomName) );
+    done(countRoom(roomName),socket.nickname);
   });
 
   socket.on("disconnecting", () => {
     socket.rooms.forEach((room) =>
-      socket.to(room).emit("bye", socket.nickname)
+      socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1)
     );
   });
 
