@@ -24,3 +24,9 @@ gcp json 파일이 올라가 커밋 전체에서 삭제 과정에서 저장소�
 04-14
 MSA 구조로 변경하기 위한 새 저장소
 - socket 을 위한 nodejs 서버 분리 및 개발중 
+
+04-25
+배포는 비용 상 vm 으로 바꾸게됨
+http://jintakim.shop:3000/graphql
+
+http://jintakim.shop:3002/socket
