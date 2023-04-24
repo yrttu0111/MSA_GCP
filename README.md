@@ -26,7 +26,10 @@ MSA 구조로 변경하기 위한 새 저장소
 - socket 을 위한 nodejs 서버 분리 및 개발중 
 
 04-25
-배포는 비용 상 vm 으로 바꾸게됨
+배포는 비용 상 vm 으로 바꾸게됨 
+html 로그인 및 화면 및 배포 단계에서 생략 graphql 및 socket 만 남김
+#
+
 http://jintakim.shop:3000/graphql
 
 http://jintakim.shop:3002/socket
