@@ -40,7 +40,7 @@ export class PaymentService {
     try {
       // 조회를 했을때, 바로 조회되지 않고 락이 풀릴 때 까지 대기
       const payment = await queryRunner.manager.find(Payment);
-      console.log('========== 철수가 시도 ==========');
+      console.log('==============================');
       console.log(payment);
       console.log('==============================');
       await queryRunner.commitTransaction();
