@@ -25,17 +25,17 @@ services:
     image: nginx:latest
     volumes:
       - ./api-gateway/default.conf:/etc/nginx/conf.d/default.conf
-      - ./api-gateway/frontend/html:/etc/nginx/html
+      - ./api-gateway/frontend/html.prod:/etc/nginx/html
     ports:
       - 80:80
 
-  my-database:
-    image: mysql:latest
-    environment:
-      MYSQL_DATABASE: 'mydocker03'
-      MYSQL_ROOT_PASSWORD: 'root'
-    ports:
-      - 3306:3306
+  # my-database:
+  #   image: mysql:latest
+  #   environment:
+  #     MYSQL_DATABASE: 'mydocker03'
+  #     MYSQL_ROOT_PASSWORD: 'root'
+  #   ports:
+  #     - 3306:3306
 
   redis:
     image: redis:latest

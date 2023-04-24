@@ -1,5 +1,6 @@
 import { Storage } from '@google-cloud/storage';
 import { Injectable } from '@nestjs/common';
+import { env } from 'process';
 import { getToday } from 'src/commons/libraries/utils';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,8 +13,8 @@ export class FileService {
     // const myfile = files[0];
 
     const storage = new Storage({
-      projectId: 'thinking-device-380708',
-      keyFilename: 'gcp-file-storage.json',
+      projectId: process.env.GCP_PROJECTID,
+      keyFilename: process.env.GCP_KEYFILE,
     }).bucket('test-jinta-storage');
 
     // 구글 스토리지에 파일 업로드

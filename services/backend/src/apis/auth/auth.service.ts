@@ -22,8 +22,10 @@ export class AuthService {
     // 개발환경
     res.setHeader(
       'Set-Cookie',
-      `refreshToken=${refreshToken}; path=/; SameSite=None; Secure; httpOnly;`
+      `refreshToken=${refreshToken}`
     ); // path 설정 필수 (소셜로그인)
+
+
     // 배포환경
     // res.setHeader('Access-Control-Allow-Origin', 'https://myfrontsite.com')
     // res.setHeader(

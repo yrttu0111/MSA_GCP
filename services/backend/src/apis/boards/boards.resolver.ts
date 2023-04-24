@@ -15,6 +15,7 @@ export class BoardResolver {
   @Query(() => [Board])
   async fetchBoards() {
     return await this.boardService.findAll();
+    
   }
 
   @Query(() => Board)
@@ -40,7 +41,7 @@ export class BoardResolver {
     @Args('updateBoardInput') updateBoardInput: CreateBoardInput,
     @Args('number') number: number,
   ) {
-    const result = this.boardService.update({ updateBoardInput, number});
+    const result = this.boardService.update({ updateBoardInput, number });
     return result;
   }
   @UseGuards(GqlAuthAccessGuard)

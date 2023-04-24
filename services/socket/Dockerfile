@@ -1,9 +1,9 @@
-FROM node:14
+FROM node:18
 
-WORKDIR /socket-service/
-COPY ./package.json /socket-service/
-COPY ./yarn.lock /socket-service/
+WORKDIR /socket/
+COPY ./package.json /socket/
+COPY ./yarn.lock /socket/
 RUN yarn install
 
-COPY . /socket-service/
+COPY . /socket/
 CMD yarn start:dev
