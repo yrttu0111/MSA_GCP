@@ -3,7 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 
 import { Strategy } from 'passport-google-oauth20';
-
+//google oauth2.0 strategy 
+// google에서 제공하는 passport strategy를 사용한다.
 export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(private readonly configService: ConfigService) {
     super({

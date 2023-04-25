@@ -10,6 +10,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
     ) {
     super({
       jwtFromRequest: (req) => {
+        //헤더 쿠키에서 refreshToken 가져오기
         const cookie = req.headers.cookie;
         if(cookie){
         const refreshToken = cookie.replace('refreshToken=', '');
@@ -25,6 +26,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
   async validate(req, payload) {
     // console.log(req);
     const access = req.headers.cookie.replace('refreshToken=', '');
+    // redis에 저장된 refresh token이면 UnauthorizedException
     const check = await this.cacheManager.get(access);
     if (check) {
       throw new UnauthorizedException();

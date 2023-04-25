@@ -102,7 +102,7 @@ type Mutation {
   restoreAccessToken: String!
   logout: String!
   createBoard(createBoardInput: CreateBoardInput!): Board!
-  updateBoard(updateBoardInput: CreateBoardInput!, number: Float!): Board!
+  updateBoard(updateBoardInput: UpdateBoardInput!, number: Float!): Board!
   deleteBoard(number: Float!): Boolean!
   uploadFile(files: [Upload!]!): [String!]!
   createProduct(createProductInput: CreateProductInput!): Product!
@@ -122,6 +122,15 @@ input CreateBoardInput {
   status: BOARD_PRIVATE!
   boardCategoryId: String!
   boardTags: [String!]!
+}
+
+input UpdateBoardInput {
+  writer: String
+  title: String
+  contents: String
+  status: BOARD_PRIVATE
+  boardCategoryId: String
+  boardTags: [String!]
 }
 
 """The `Upload` scalar type represents a file upload."""
