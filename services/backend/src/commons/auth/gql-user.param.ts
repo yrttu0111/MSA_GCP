@@ -1,3 +1,5 @@
+// graphql user param decorator.
+// context에 있는 req.user를 가져오는 decorator.
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 

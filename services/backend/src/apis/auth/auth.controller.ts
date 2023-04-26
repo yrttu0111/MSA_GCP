@@ -1,10 +1,13 @@
+/* 소셜 로그인 을 위해 
+rest API 로 만들어진 controller
+*/
 import { User } from 'src/apis/users/entities/user.entity';
 import { UserService } from '../users/user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request, Response } from 'express';
-//restAPI
+
 
 interface IOauthUser {
   user: Pick<User, 'email' | 'password' | 'name' >;

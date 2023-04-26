@@ -6,6 +6,8 @@ import { PointTransaction } from './entities/pointTransaction.entity';
 import { PointTransactionService } from './pointTransaction.service';
 import { IamportService } from '../iamport/iamport.service';
 
+/* 결제시 계정에 포인트를 등록 및 취소 시키기 위한 resolver */
+
 @Resolver()
 export class PointTransactionResolver {
   constructor(

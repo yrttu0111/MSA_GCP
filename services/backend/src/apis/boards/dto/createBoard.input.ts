@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { BOARD_PRIVATE } from '../entities/board.entity';
 
+// graphql input type
 @InputType()
 export class CreateBoardInput {
   @Field(() => String)

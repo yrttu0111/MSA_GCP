@@ -1,3 +1,4 @@
+// AuthGuard에서 사용할 JWT Access Strategy
 
 import { CACHE_MANAGER, Inject, UnauthorizedException} from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
@@ -20,6 +21,8 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'myGuard') {
     // console.log("req:",req);
     // console.log("payload:",payload);
     const access = req.headers.authorization.replace('Bearer ', '');
+    // redis에 저장된 access token이면 UnauthorizedException
+    // redis에서 blacklist로 로그아웃을 관리 중 
     const check = await this.cacheManager.get(access);
     if (check) {
       throw new UnauthorizedException();

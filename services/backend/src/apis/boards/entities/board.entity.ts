@@ -12,6 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+//공개글 혹은 비공개글 설정
 export enum BOARD_PRIVATE {
   PUBLIC = 'PUBLIC',
   PRIVATE = 'PRIVATE',

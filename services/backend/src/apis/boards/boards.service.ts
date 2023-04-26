@@ -46,7 +46,7 @@ export class BoardService {
     const { boardCategoryId, boardTags, ...board } = createBoardInput;
     const result2 = []
     for (let i = 0; i < boardTags.length; i++) {
-      const tagname = boardTags[i].replace('#', ''); //
+      const tagname = boardTags[i].replace('#', ''); //태그에 # 제거
       //이미 등록된 태그인지 확인
       const prevTag = await this.boardTagRepository.findOne({
         name: tagname,

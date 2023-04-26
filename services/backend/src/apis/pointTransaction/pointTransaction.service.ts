@@ -21,12 +21,12 @@ export class PointTransactionService {
 
     private readonly connection: Connection,
   ) {}
-
+// 중복 확인
   async checkDuplicate({ impUid }) {
     const result = await this.pointTransactionRepository.findOne({ impUid });
     if (result) throw new ConflictException('이미 결제된 거래입니다.');
   }
-
+// 취소된 결제인지 확인
   async checkAlreadyCanceled({ impUid }) {
     const pointTransaction = await this.pointTransactionRepository.findOne({
       impUid,
@@ -35,7 +35,7 @@ export class PointTransactionService {
     if (pointTransaction)
       throw new ConflictException('이미 취소된 거래입니다.');
   }
-
+// 취소할 수 있는지 확인
   async checkHasCancelablePoint({ impUid, currentUser }) {
     const pointTransaction = await this.pointTransactionRepository.findOne({
       impUid,
@@ -51,6 +51,7 @@ export class PointTransactionService {
       throw new UnprocessableEntityException('취소할 금액이 부족합니다');
   }
 
+  // 취소
   async cancel({ impUid, amount, currentUser }) {
     const pointTransaction = await this.create({
       impUid,
@@ -60,6 +61,8 @@ export class PointTransactionService {
     });
     return pointTransaction;
   }
+
+  // 포인트 충전
   async create({
     impUid,
     amount,

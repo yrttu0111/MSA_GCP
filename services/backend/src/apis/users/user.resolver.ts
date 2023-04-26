@@ -29,8 +29,7 @@ export class UserResolver {
   fetchUser(
     @CurrentUser() currentUser: ICurrentUser, //
   ) {
-    console.log('fetchUser 실행 완료!!!');
     console.log('유저정보는??!!!', currentUser);
-    return 'fetchUser 실행 완료!!!';
+    return currentUser;
   }
 }

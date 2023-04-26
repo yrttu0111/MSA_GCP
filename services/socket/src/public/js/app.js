@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unde
 // import { io } from "socket.io-client";
 const socket = io(
-  {path: "/socket/"},
+  // {path: "/socket/"},
 );
 
 const welcome = document.getElementById("welcome");

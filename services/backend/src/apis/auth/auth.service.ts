@@ -13,7 +13,7 @@ export class AuthService {
     @Inject(CACHE_MANAGER)
     private readonly cacheManager: Cache,
   ) {}
-
+//refreshToken 발행
   async setRefreshToken({ user, res }) {
     const refreshToken = this.jwtService.sign(
       { email: user.email, sub: user.id },
@@ -22,7 +22,7 @@ export class AuthService {
     // 개발환경
     res.setHeader(
       'Set-Cookie',
-      `refreshToken=${refreshToken}`
+      `refreshToken=${refreshToken}; path=/; domain=.mybacksite.com; SameSite=None; Secure; httpOnly;`
     ); // path 설정 필수 (소셜로그인)
 
 
@@ -33,13 +33,16 @@ export class AuthService {
     //   `refreshToken=${refreshToken}; path=/; domain=.mybacksite.com; SameSite=None; Secure; httpOnly;`
     // )
   }
-
+//accessToken 발행
   getAccessToken({ user }) {
     return this.jwtService.sign(
       { email: user.email, sub: user.id },
       { secret: process.env.ACCESS_TOKEN_KEY, expiresIn: '1h' },
     );
   }
+
+  //소셜 로그인 oauth 프로세스
+
   async loginOauth({ req, res }) {
     // 1. 가입확인
     let user = await this.userService.findOne({ email: req.user.email });

@@ -18,6 +18,8 @@ export class ProductResolver {
     // @Inject(CACHE_MANAGER)
     // private readonly cacheManager: Cache,
   ) {}
+
+  //레디스 엘라스틱 서치 사용 시 빠른 검색을 위해 캐시를 사용한다.
   // @Query(() => [Product])
   // async fetchProducts(
   //   @Args({ name: 'search', nullable: true }) search: string,

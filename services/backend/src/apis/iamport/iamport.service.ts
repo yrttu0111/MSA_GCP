@@ -5,6 +5,10 @@ import {
 } from '@nestjs/common';
 import axios from 'axios';
 
+/* import 결제 프로세스 docs 참고
+관리자 페이지에서 환불및 결제 확인 가능
+*/
+
 @Injectable()
 export class IamportService {
   async getToken() {
