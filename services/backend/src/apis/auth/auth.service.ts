@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../users/user.service';
 import * as jwt from 'jsonwebtoken';
 import { Cache } from 'cache-manager';
+import { error } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,7 @@ export class AuthService {
     // 개발환경
     res.setHeader(
       'Set-Cookie',
-      `refreshToken=${refreshToken}; path=/; domain=.mybacksite.com; SameSite=None; Secure; httpOnly;`
+      `refreshToken=${refreshToken}; path=/; SameSite=None; Secure; httpOnly;`
     ); // path 설정 필수 (소셜로그인)
 
 
@@ -46,7 +47,7 @@ export class AuthService {
   async loginOauth({ req, res }) {
     // 1. 가입확인
     let user = await this.userService.findOne({ email: req.user.email });
-
+    
     // 2. 회원가입(가입 안되있을 시)
     if (!user) {
       const { password, ...rest } = req.user;
