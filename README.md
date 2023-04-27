@@ -44,4 +44,14 @@ docs에서 api 확인 가능
 
 
 
+그리고 오른쪽 위에 세팅에서
+"request.credentials": "same-origin",
+이 설정을 넣어줘야 로그인이 가능하다 (쿠키에 리프레시 토큰 등록)
+
+
+tip
+ctrl+i 누르면 입력가능한 것들이 나온다!
+https://blog.naver.com/terry0222/223087247238
+
+채팅 noom 클론코딩
 http://jintakim.shop:3002/socket
