@@ -35,23 +35,23 @@ html 로그인 결제 페이지 등 (MSA NGINX) 생략 graphql 및 socket 만 �
 
 # test
 http://jintakim.shop:3000/graphql
-graphql 사용방법
-query 와 mutation이 있음
-query -> get
-mutation -> post update delete 모두
+- graphql 사용방법
+- query 와 mutation이 있음
+- query -> get
+- mutation -> post update delete 모두
 ![image](https://user-images.githubusercontent.com/76115198/234874445-e957164c-6532-45d3-8220-de530175915c.png)
-docs에서 api 확인 가능
+- docs에서 api 확인 가능
 
 
 
-그리고 오른쪽 위에 세팅에서
-"request.credentials": "same-origin",
-이 설정을 넣어줘야 로그인이 가능하다 (쿠키에 리프레시 토큰 등록)
+- 그리고 오른쪽 위에 세팅에서
+- "request.credentials": "same-origin",
+- 이 설정을 넣어줘야 로그인이 가능하다 (쿠키에 리프레시 토큰 등록)
 
 
-tip
-ctrl+i 누르면 입력가능한 것들이 나온다!
-https://blog.naver.com/terry0222/223087247238
+- tip
+- ctrl+i 누르면 입력가능한 것들이 나온다!
+- https://blog.naver.com/terry0222/223087247238
 
-채팅 noom 클론코딩
-http://jintakim.shop:3002/socket
+- 채팅 noom 클론코딩
+- http://jintakim.shop:3002/socket
