@@ -11,7 +11,7 @@ export class PaymentService {
 
     private readonly connection: Connection,
   ) {}
-
+    // queryRunner 를 이용하여 트랜잭션 처리
   async findAll() {
     const queryRunner = await this.connection.createQueryRunner();
     await queryRunner.connect();
@@ -33,6 +33,7 @@ export class PaymentService {
     }
   }
 
+  
   async create({ amount }) {
     const queryRunner = await this.connection.createQueryRunner();
     await queryRunner.connect();
