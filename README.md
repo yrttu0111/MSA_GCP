@@ -19,6 +19,7 @@ chatGPT API, MSA
 - Chat gpt API (옷을 추천해주는 챗봇)
 - GCP Cloud storage 에 이미지 업로드 (GCP Cloud Function 사용해 이미지 사이즈 관리)
 - Socket.IO 
+- ![image](https://user-images.githubusercontent.com/76115198/235073422-4a0fbeda-f045-43bc-b1aa-db92f3db56e5.png)
 
 #- testcode
 
