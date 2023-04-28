@@ -27,7 +27,7 @@ chatGPT API, MSA
 gcp json 파일이 올라가 커밋 전체에서 삭제 과정에서 저장소가 꼬여 pull requests 가 안돼 저장소 교체.. 
 
 04-14
-MSA 구조로 변경하기 위한 새 저장소
+nginx reverse proxy 구조로 변경하기 위한 새 저장소
 - socket 을 위한 nodejs 서버 분리 및 개발중 
 
 # 참고 
