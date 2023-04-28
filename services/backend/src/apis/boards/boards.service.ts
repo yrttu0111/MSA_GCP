@@ -18,11 +18,14 @@ export class BoardService {
   ) {}
   async findAll() {
     const result = await this.boardRepository.find({
+      //삭제되지 않은 글 + 공개된 글만
+      where:{ deletedAt: null, status: "PUBLIC" },
       relations: [
       'boardCategory',
        'boardTags',
         'user'
       ],
+      order: { number: 'DESC' },
     });
     console.log(result)
     return result;

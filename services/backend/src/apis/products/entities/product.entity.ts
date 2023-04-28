@@ -42,19 +42,24 @@ export class Product {
   @DeleteDateColumn()
   deletedAt: Date;
 
+
+  //하나의 상품에 하나의 위치정보 1:1
   @JoinColumn()
   @Field(() => ProductSaleslocation)
   @OneToOne(() => ProductSaleslocation)
   productSaleslocation: ProductSaleslocation;
 
+  //하나의 상품에 여러개의 카테고리 
   @ManyToOne(() => ProductCategory)
   @Field(() => ProductCategory)
   productCategory: ProductCategory;
 
+  //하나의 유저가 여러개의 상품 등록가능
   @ManyToOne(() => User)
   @Field(() => User)
   user: User;
 
+  //하나의 상품에 여러개의 태그 등록가능, 여러개의 상품에 여러개의 태그 등록가능 
   @JoinTable()
   @Field(() => [ProductTag])
   @ManyToMany(() => ProductTag, (productTags) => productTags.products)

@@ -4,6 +4,7 @@ import { BoardTag } from 'src/apis/boardTag/entities/boardTag.entity';
 import { User } from 'src/apis/users/entities/user.entity';
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -44,17 +45,23 @@ export class Board {
   @Field(() => BOARD_PRIVATE)
   status: string;
 
+  @DeleteDateColumn()
+  deletedAt: Date;
+
   @UpdateDateColumn()
   updatedAt: Date;
 
+  //카테고리 한개에 게시물 여러개 등록가능
   @ManyToOne(() => BoardCategory)
   @Field(() => BoardCategory)
   boardCategory: BoardCategory;
 
+  // 한명의 유저가 여러개의 게시물 등록가능
   @ManyToOne(() => User)
   @Field(() => User)
   user: User;
 
+  // 한개의 게시물에 여러개의 태그 등록가능, 여러개의 게시물에 여러개의 태그 등록가능
   @JoinTable()
   @Field(() => [BoardTag])
   @ManyToMany(() => BoardTag, (boardTags) => boardTags.boardTags)

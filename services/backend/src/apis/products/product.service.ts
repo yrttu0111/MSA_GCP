@@ -27,6 +27,7 @@ export class ProductService {
 
   async findAll() {
     return await this.ProductRepository.find({
+      where: { deletedAt: null },
       relations: ['productSaleslocation', 'productCategory', 'productTags','user'],
     });
   }
