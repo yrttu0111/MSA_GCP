@@ -20,21 +20,12 @@ export class AuthService {
       { email: user.email, sub: user.id },
       { secret: process.env.REFRESH_TOKEN_KEY, expiresIn: '2w' },
     );
-    // 개발환경
+   
     res.setHeader('Access-Control-Allow-Origin', 'https://jintakim.shop')
     res.setHeader(
       'Set-Cookie',
       `refreshToken=${refreshToken}; path=/; domain=${process.env.MAIN_DOMAIN}; SameSite=None; Secure; httpOnly;`
     );
-
-
-    // 배포환경 commit 시 필 수 주석 해제
-
-    // res.setHeader('Access-Control-Allow-Origin', 'https://jintakim.shop')
-    // res.setHeader(
-    //   'Set-Cookie',
-    //   `refreshToken=${refreshToken}; path=/; domain=.jintakim.shop; SameSite=None; Secure; httpOnly;`
-    // )
   }
 //accessToken 발행
   getAccessToken({ user }) {
