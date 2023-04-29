@@ -22,7 +22,6 @@ export class AuthService {
     );
     // 개발환경
     res.setHeader('Access-Control-Allow-Origin', 'https://jintakim.shop')
-    console.log(`domain - ${process.env.MAIN_DOMAIN} `)
     res.setHeader(
       'Set-Cookie',
       `refreshToken=${refreshToken}; path=/; domain=${process.env.MAIN_DOMAIN}; SameSite=None; Secure; httpOnly;`
