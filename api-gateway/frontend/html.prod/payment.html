@@ -26,10 +26,10 @@
                   restoreAccessToken
                   }
                   `,
-                }
-                
+                },
+                { withCredentials: true }
               );
-
+                
         const IMP = window.IMP; // 생략 가능
         IMP.init("imp57644580"); // Example: imp00000000
         IMP.request_pay(
