@@ -14,7 +14,7 @@ const subClient = pubClient.duplicate();
 
 app.set("view engine", "pug");
 app.set("views", __dirname + "/src/views");
-app.use("/public", express.static(__dirname + "/src/public"));
+app.use("/socket", express.static(__dirname + "/src/public"));
 app.get("/socket", (_, res) => res.render("home"));
 app.get("/socket/*", (_, res) => res.redirect("/"));
 
