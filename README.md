@@ -16,7 +16,7 @@ chatGPT API, MSA
 - 중고상품 crud
 - 게시판 crud
 - 결제 시스템 포트원(아임포트) 이용. 조회 결제 및 환불 
-- Chat gpt API (옷을 추천해주는 챗봇)
+- Chat gpt API (옷을 추천해주는 챗봇)  
 - GCP Cloud storage 에 이미지 업로드 (GCP Cloud Function 사용해 이미지 사이즈 관리)
 - Socket.IO 
 - ![image](https://user-images.githubusercontent.com/76115198/235073422-4a0fbeda-f045-43bc-b1aa-db92f3db56e5.png)
