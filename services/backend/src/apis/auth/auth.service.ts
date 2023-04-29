@@ -21,18 +21,18 @@ export class AuthService {
       { secret: process.env.REFRESH_TOKEN_KEY, expiresIn: '2w' },
     );
     // 개발환경
-    res.setHeader(
-      'Set-Cookie',
-      `refreshToken=${refreshToken}; path=/; SameSite=None; httpOnly;`
-    ); // path 설정 필수 (소셜로그인)
+    // res.setHeader(
+    //   'Set-Cookie',
+    //   `refreshToken=${refreshToken}; path=/; SameSite=None; Secure; httpOnly;`
+    // ); // path 설정 필수 (소셜로그인)
 
 
     // 배포환경
-    // res.setHeader('Access-Control-Allow-Origin', 'https://myfrontsite.com')
-    // res.setHeader(
-    //   'Set-Cookie',
-    //   `refreshToken=${refreshToken}; path=/; domain=.mybacksite.com; SameSite=None; Secure; httpOnly;`
-    // )
+    res.setHeader('Access-Control-Allow-Origin', 'http://jintakim.shop')
+    res.setHeader(
+      'Set-Cookie',
+      `refreshToken=${refreshToken}; path=/; domain=.jintakim.shop; SameSite=None; Secure; httpOnly;`
+    )
   }
 //accessToken 발행
   getAccessToken({ user }) {
