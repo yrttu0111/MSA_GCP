@@ -23,12 +23,13 @@ export class AuthService {
     // 개발환경
     // res.setHeader(
     //   'Set-Cookie',
-    //   `refreshToken=${refreshToken}; path=/; SameSite=None; Secure; httpOnly;`
-    // ); // path 설정 필수 (소셜로그인)
+    //   `refreshToken=${refreshToken}; path=/; domain=localhost; SameSite=None; Secure; httpOnly;`
+    // );
 
 
-    // 배포환경
-    res.setHeader('Access-Control-Allow-Origin', 'http://jintakim.shop')
+    // 배포환경 commit 시 필 수 주석 해제
+
+    res.setHeader('Access-Control-Allow-Origin', 'https://jintakim.shop')
     res.setHeader(
       'Set-Cookie',
       `refreshToken=${refreshToken}; path=/; domain=.jintakim.shop; SameSite=None; Secure; httpOnly;`
