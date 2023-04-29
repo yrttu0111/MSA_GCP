@@ -1,5 +1,5 @@
 # MSA_GCP
-http://jintakim.shop/
+https://jintakim.shop/
 
 stack
 
@@ -35,7 +35,7 @@ nginx reverse proxy 구조로 변경하기 위한 새 저장소
 html 로그인 결제 페이지 등 (MSA NGINX) 생략 graphql 및 socket 만 남김
 
 # test
-http://jintakim.shop:3000/graphql
+https://jintakim.shop/graphql
 - graphql 사용방법
 - query 와 mutation이 있음
 - query -> get
@@ -55,4 +55,4 @@ http://jintakim.shop:3000/graphql
 - https://blog.naver.com/terry0222/223087247238
 
 - 채팅 noom 클론코딩
-- http://jintakim.shop:3002/socket
+- https://jintakim.shop:3002/socket
