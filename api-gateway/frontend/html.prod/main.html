@@ -137,29 +137,32 @@ GraphQL은 REST API의 단점을 보완하고자 만들어진 API입니다.
       <div class="col-lg-8">
         <h1 class="display-8 fw-bold lh-1 mb-3">그외 기능들</h1>
         <pre class="lead">
-restAPI 로 만들어진 다른 기능들입니다.
-결제기능은 아임포트를 이용해 만들었습니다.(결제시 밤에 자동 환불)
-결제를 하면 계정에 포인트가 쌓이게 만들었습니다. 
-(환불 등은 graphQL에서 테스트 가능)
-
-로그인은 소셜로그인(구글 네이버 카카오)과 일반로그인을 구현했습니다.
-소셜로그인 기능은 passport를 이용해 만들었습니다. 
-소셜로그인 시 처음 로그인 시에는 회원가입을 하고
-그 후에는 로그인을 합니다.
-로그인은 JWT를 이용해 만들었습니다.
-로그아웃은 redis를 이용해 만들었습니다.
-백엔드 프로젝트이다 보니 회원가입 페이지를 만들지 않았지만 
-graphql playground에서 회원가입을 할 수 있습니다.
+- niginx를 사용해 reverse proxy 구현
+- bcrypt를 이용한 비밀 번호 암호화
+- JWT 토큰을 이용한 로그인 인증, OAuth를 이용한 소셜 로그인
+- redis 블랙리스트를 사용한 로그아웃 처리 
+- RDBMS (MySQL)
+- 중고상품 crud
+- 게시판 crud
+- 결제 시스템 포트원(아임포트) 이용. 조회 결제 및 환불 
+- Chat gpt API (옷을 추천해 주는 챗봇)
+- GCP Cloud storage에 이미지 업로드 
+(GCP Cloud Function 사용해 이미지 사이즈 관리)
+- Socket.IO 
+        </pre>
+        <a href="https://blog.naver.com/terry0222/223086158246">결제 구현 blog</a>
+        <a href="https://blog.naver.com/terry0222/223086813710">소셜 로그인 blog</a>
+        <pre class="lead">
 
 이미지 업로드는 gcp bucket을 이용해 만들었습니다.
 -- 과금으로 인해 링크를 없애놓았습니다. 
 test id : test@test
 test pw : test
-        </pre>
+                </pre>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <a type="button" href="https://jintakim.shop/payment.html" class="btn btn-primary btn-lg px-4 gap-3">포인트 충전</a>
           <a type="button" href="https://jintakim.shop/social-login.html" class="btn btn-outline-secondary btn-lg px-4">로그인</a>
-          <a type="button" href="http://socket.jintakim.shop:3002/socket" class="btn btn-outline-secondary btn-lg px-4">socket</a>
+          <a type="button" href="https://jintakim.shop/socket/" class="btn btn-outline-secondary btn-lg px-4">socket</a>
         </div>
       </div>
     </div>
