@@ -19,7 +19,7 @@
       async function requestPay() {
         const amount = document.getElementById("amount").value;
         const accessToken = await axios.post(
-                "http://http://graphql.jintakim.shop/graphql",
+                "http://http://jintakim.shop/graphql",
                 {
                   query: `
                   mutation{
@@ -29,7 +29,7 @@
                 },
                 { withCredentials: true }
               );
-                
+
         const IMP = window.IMP; // 생략 가능
         IMP.init("imp57644580"); // Example: imp00000000
         IMP.request_pay(
@@ -51,7 +51,7 @@
               // 결제 성공 시 로직,
               console.log(rsp);
               axios.post(
-                "http://http://graphql.jintakim.shop/graphql",
+                "http://http://jintakim.shop/graphql",
                 {
                   query: `
                       mutation {
