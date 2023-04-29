@@ -55,4 +55,4 @@ https://jintakim.shop/graphql
 - https://blog.naver.com/terry0222/223087247238
 
 - 채팅 noom 클론코딩
-- http://jintakim.shop:3002/socket
+- http://socket.jintakim.shop:3002/socket
