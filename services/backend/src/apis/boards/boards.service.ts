@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardTag } from '../boardTag/entities/boardTag.entity';
+import { JsonWebTokenError } from 'jsonwebtoken';
 
 @Injectable()
 export class BoardService {
@@ -56,6 +57,7 @@ export class BoardService {
       });
       if (prevTag) {
         result2.push(prevTag);
+        
       } else {
         const newTag = await this.boardTagRepository.save({ name: tagname });
         result2.push(newTag);

@@ -14,7 +14,7 @@ export class UserResolver {
   ) {}
 
   @Mutation(() => User)
-  async craeteUser(
+  async createUser(
     @Args('email') email: string,
     @Args('password') password: string,
     @Args('name') name: string,

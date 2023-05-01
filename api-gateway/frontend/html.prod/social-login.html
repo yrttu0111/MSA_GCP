@@ -23,7 +23,7 @@
       const password = document.getElementById("floatingPassword").value;
         console.log(email)
         const result = await axios.post(
-                    "http://jintakim.shop/graphql",
+                    "https://jintakim.shop/graphql",
                     {
                       query: `
                       mutation{
@@ -36,7 +36,7 @@
         alert(result.data.data.login);
         if(result.data.data.login.includes("로그인 성공")){
           // 홈페이지로 이동
-          window.location.href = "http://jintakim.shop/main.html";
+          window.location.href = "https://jintakim.shop/main.html";
         }
         
         

@@ -109,7 +109,7 @@ type Mutation {
   updateProduct(productId: String!, updateProductinput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
   createProductCategory(name: String!): ProductCategory!
-  craeteUser(email: String!, password: String!, name: String!): User!
+  createUser(email: String!, password: String!, name: String!): User!
   createPointTransaction(impUid: String!, amount: Float!): PointTransaction!
   cancelPointTransaction(impUid: String!): PointTransaction!
   styleChatBot(createCompletionDto: CreateCompletionDto!): String!

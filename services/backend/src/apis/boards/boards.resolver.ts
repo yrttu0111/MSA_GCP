@@ -31,7 +31,7 @@ export class BoardResolver {
     @Args('createBoardInput') createBoardInput: CreateBoardInput,
     @CurrentUser() currentUser: any,
   ) {
-    console.log(createBoardInput)
+    // console.log(createBoardInput)
     const result = this.boardService.create({ createBoardInput, user : currentUser });
     return result;
   }
@@ -45,12 +45,13 @@ export class BoardResolver {
     const result = this.boardService.update({ updateBoardInput, number });
     return result;
   }
+  // 보드 삭제 (로그인) softdelete
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Boolean)
   async deleteBoard(
     @Args('number') number: number,
   ) {
-    const result = this.boardService.delete({ number});
+    const result = this.boardService.delete({ number });
     return result;
   }
 
