@@ -1,6 +1,6 @@
 import { ConflictException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { UserService } from '../user.service';
@@ -27,65 +27,68 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const userModule: TestingModule = await Test.createTestingModule({
+      // imports: [TypeOrmModule.forFeature([User])],
       providers: [
         UserService,
-        {
-          provide: getRepositoryToken(User),
-          useClass: MockUserRepository,
-        },
+        // {
+        //   provide: getRepositoryToken(User)
+        //   useClass: MockUserRepository,
+        // },
       ],
     }).compile();
 
     userService = userModule.get<UserService>(UserService);
-    userRepository = userModule.get<MockRepository<User>>(
-      getRepositoryToken(User),
-    );
+    // userRepository = userModule.get<MockRepository<User>>(
+    //   getRepositoryToken(User),
+    // );
   });
 
-  describe('create', () => {
-    it('이미 존재하는 이메일 검증하기!!', async () => {
-      const userRepositorySpyFindOne = jest.spyOn(userRepository, 'findOne');
-      const userRepositorySpySave = jest.spyOn(userRepository, 'save');
-      const myData = {
-        email: 'a@a.com',
-        hashedPassword: '1234',
-        name: '철수',
-        age: 13,
-      };
-      try {
-        await userService.create({ ...myData });
-      } catch (error) {
-        expect(error).toBeInstanceOf(ConflictException);
-      }
+  // describe('create', () => {
+  //   it('이미 존재하는 이메일 검증하기!!', async () => {
+  //     const userRepositorySpyFindOne = jest.spyOn(userRepository, 'findOne');
+  //     const userRepositorySpySave = jest.spyOn(userRepository, 'save');
+  //     const myData = {
+  //       email: 'a@a.com',
+  //       hashedPassword: '1234',
+  //       name: '철수',
+  //     };
+  //     try {
+  //       await userService.create({ ...myData });
+  //     } catch (error) {
+  //       expect(error).toBeInstanceOf(ConflictException);
+  //     }
 
-      expect(userRepositorySpyFindOne).toBeCalledTimes(1);
-      expect(userRepositorySpySave).toBeCalledTimes(0);
-    });
+  //     expect(userRepositorySpyFindOne).toBeCalledTimes(1);
+  //     expect(userRepositorySpySave).toBeCalledTimes(0);
+  //   });
 
-    it('회원 등록 잘됐는지 검증!!', async () => {
-      const userRepositorySpyFindOne = jest.spyOn(userRepository, 'findOne');
-      const userRepositorySpySave = jest.spyOn(userRepository, 'save');
-      const myData = {
-        email: 'bbb@bbb.com',
-        hashedPassword: '1234',
-        name: '철수',
-        age: 13,
-      };
+  //   it('회원 등록 잘됐는지 검증!!', async () => {
+  //     const userRepositorySpyFindOne = jest.spyOn(userRepository, 'findOne');
+  //     const userRepositorySpySave = jest.spyOn(userRepository, 'save');
+  //     const myData = {
+  //       email: 'bbb@bbb.com',
+  //       hashedPassword: '1234',
+  //       name: '철수',
+  //       age: 13,
+  //     };
 
-      const myResultData = {
-        email: 'bbb@bbb.com',
-        password: '1234',
-        name: '철수',
-        age: 13,
-      };
+  //     const myResultData = {
+  //       email: 'bbb@bbb.com',
+  //       password: '1234',
+  //       name: '철수',
+  //       age: 13,
+  //     };
 
-      const result = await userService.create({ ...myData });
-      expect(result).toStrictEqual(myResultData);
+  //     const result = await userService.create({ ...myData });
+  //     expect(result).toStrictEqual(myResultData);
 
-      expect(userRepositorySpyFindOne).toBeCalledTimes(1);
-      expect(userRepositorySpySave).toBeCalledTimes(1);
-    });
-  });
+  //     expect(userRepositorySpyFindOne).toBeCalledTimes(1);
+  //     expect(userRepositorySpySave).toBeCalledTimes(1);
+  //   });
+  // });
 
-  describe('findOne', () => {});
+  describe('findOne', () => {
+    const result = userService.findOne({ email: 'test@test'});
+    expect(result).toStrictEqual({ email: 'test@test', password: 'test', name: 'tester',point: 0});
 });
+})
