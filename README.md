@@ -1,6 +1,11 @@
 # MSA_GCP
 https://jintakim.shop/
 
+http://34.64.210.203/graphql
+임시 - 현재 gcp 이슈로 서버다운 새로운 서버 만들었으나 ssh 인증중 시간이 걸릴거 같음
+로드벨런서 dns 연결 해놔서 ssh 인증 되면 바로 연결 될거같음 
+05-02일 10시 33분 gcp메일 -> 12시 33 분 해결 및 대기중
+
 stack
 
 NestJS, graphQL, RestAPI, MySQL, typeORM, Redis, docker, JWT, passport, GCP(kubernetes, CI/CD, sql, bucket, cloud funcion, DNS), git, jest
