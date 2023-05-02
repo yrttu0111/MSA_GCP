@@ -38,7 +38,6 @@ nginx reverse proxy 구조로 변경하기 위한 새 저장소
 
 # 참고 
 쿠버네티스 에서 비용 상 간단하게 vm 으로 테스트 용으로만 축소
-html 로그인 결제 페이지 등 (MSA NGINX) 생략 graphql 및 socket 만 남김
 
 # test
 https://jintakim.shop/graphql
