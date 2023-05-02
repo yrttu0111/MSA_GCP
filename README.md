@@ -1,11 +1,7 @@
 # MSA_GCP
 https://jintakim.shop/
 !!!!!!!!!!!!!!!!!!!!!!!!!!
-- 
-http://34.64.210.203/graphql
-임시 - 현재 gcp 이슈로 서버다운 새로운 서버 만들었으나 ssh 인증 중 시간이 걸릴거 같음 - 네임서버 변경 중(다소시간 소요 될 듯)
-- 로드벨런서 dns 연결 해놔서 ssh 인증 되면 바로 연결 될거같음 
-05-02일 10시 33분 gcp메일 -> 12시 33 분 해결 및 대기중
+
 
 stack
 
@@ -29,12 +25,6 @@ chatGPT API, MSA
 
 #- testcode
 
-04-13
-gcp json 파일이 올라가 커밋 전체에서 삭제 과정에서 저장소가 꼬여 pull requests 가 안돼 저장소 교체.. 
-
-04-14
-nginx reverse proxy 구조로 변경하기 위한 새 저장소
-- socket 을 위한 nodejs 서버 분리 및 개발중 
 
 # 참고 
 쿠버네티스 에서 비용 상 간단하게 vm 으로 테스트 용으로만 축소
@@ -61,3 +51,18 @@ https://jintakim.shop/graphql
 
 - 채팅 noom 클론코딩
 - https://jintakim.shop/socket/
+
+
+
+04-13
+gcp json 파일이 올라가 커밋 전체에서 삭제 과정에서 저장소가 꼬여 pull requests 가 안돼 저장소 교체.. 
+
+04-14
+nginx reverse proxy 구조로 변경하기 위한 새 저장소
+- socket 을 위한 nodejs 서버 분리 및 개발중 
+
+- 복구 완료
+임시 - 현재 gcp 이슈로 서버다운 새로운 서버 만들었으나 ssh 인증 중 시간이 걸릴거 같음 - 네임서버 변경 중(다소시간 소요 될 듯)
+- 로드벨런서 dns 연결 해놔서 ssh 인증 되면 바로 연결 될거같음 
+05-02일 10시 33분 gcp메일 -> 12시 33 분 해결 및 대기중
+8시 네임서버 변경 완료 dns 연결 성공 복구 완료 
