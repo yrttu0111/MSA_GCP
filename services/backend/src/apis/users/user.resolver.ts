@@ -32,4 +32,18 @@ export class UserResolver {
     console.log('유저정보는??!!!', currentUser);
     return currentUser;
   }
+
+  @UseGuards(GqlAuthAccessGuard)
+  @Query(() => String)
+  findOneByEmail(
+    @Args('email') email: string){
+    return this.userService.findOne({email});
+  }
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(() => String)
+  deleteUser(
+    @CurrentUser() currentUser: ICurrentUser, //
+  ) {
+    const result = this.userService.delete({user:currentUser});
+  }
 }

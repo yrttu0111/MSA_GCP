@@ -24,4 +24,8 @@ export class UserService {
     });
     return result;
   }
+  async delete({user}) {
+    const result = await this.userRepository.delete({email :user.email});
+    return result;
+  }
 }

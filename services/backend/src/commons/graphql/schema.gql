@@ -93,6 +93,7 @@ type Query {
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
   fetchUser: String!
+  findOneByEmail(email: String!): String!
 }
 
 type Mutation {
@@ -110,6 +111,7 @@ type Mutation {
   deleteProduct(productId: String!): Boolean!
   createProductCategory(name: String!): ProductCategory!
   createUser(email: String!, password: String!, name: String!): User!
+  deleteUser: String!
   createPointTransaction(impUid: String!, amount: Float!): PointTransaction!
   cancelPointTransaction(impUid: String!): PointTransaction!
   styleChatBot(createCompletionDto: CreateCompletionDto!): String!
