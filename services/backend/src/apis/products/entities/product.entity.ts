@@ -5,6 +5,7 @@ import { ProductTag } from 'src/apis/productTags/entities/productTags.entity';
 import { User } from 'src/apis/users/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinColumn,
@@ -42,6 +43,11 @@ export class Product {
   @DeleteDateColumn()
   deletedAt: Date;
 
+  @CreateDateColumn()
+  createdAt: Date;
+  
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   //하나의 상품에 하나의 위치정보 1:1
   @JoinColumn()
@@ -65,6 +71,5 @@ export class Product {
   @ManyToMany(() => ProductTag, (productTags) => productTags.products)
   productTags: ProductTag[];
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  
 }

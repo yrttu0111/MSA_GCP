@@ -62,6 +62,7 @@ export class AuthService {
 
     // 1. 토큰 전처리 (access, refresh) 만료시간 계산 -> ttl
     const now = new Date();
+    console.log(context.req.headers.authorization)
     const access = context.req.headers.authorization.replace('Bearer ', '');
     const access_decoded = this.jwtService.decode(access);
     const access_time = new Date(access_decoded['exp'] * 1000);
@@ -72,16 +73,20 @@ export class AuthService {
     
     const refresh = context.req.headers.cookie.replace('refreshToken=', '');
     const refresh_decoded = this.jwtService.decode(refresh);
+    console.log(refresh_decoded)
     const refresh_time = new Date(refresh_decoded['exp'] * 1000);
     const refresh_end = Math.floor(
       (refresh_time.getTime() - now.getTime()) / 1000,
     );
-    
+    console.log("access",access)
+    console.log("refresh",refresh)
     // 2. 블랙리스트에 저장 레디스
     try {
       jwt.verify(access, process.env.ACCESS_TOKEN_KEY);
+      console.log("access",access)
       jwt.verify(refresh, process.env.REFRESH_TOKEN_KEY);
-      await this.cacheManager.set(access, 'accessToken', { ttl: access_end });
+      console.log("refresh",refresh)
+      await this.cacheManager.set(access, 'accessToken', { ttl: 3600 });
       await this.cacheManager.set(refresh, 'refreshToken', {
         ttl: refresh_end,
       });// 

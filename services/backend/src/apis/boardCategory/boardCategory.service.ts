@@ -12,4 +12,10 @@ export class BoardCategoryService{
   async create({ name }) {
   return await this.BoardCategoryRepository.save({ name });
   }
+  async findAll() {
+    return await this.BoardCategoryRepository.find();
+  }
+  async findOne({ name }) {
+    return await this.BoardCategoryRepository.findOne({ name });
+  }
 }
