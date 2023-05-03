@@ -9,9 +9,15 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
+
+  //유저검색
   async findOne({ email }) {
-    return await this.userRepository.findOne({ email });
+    return await this.userRepository.findOne(
+      {
+        where:{ email: email , deletedAt: null},
+      });
   }
+  //유저생성
   async create({ email, hashedPassword: password, name}) {
     const user = await this.userRepository.findOne({ email });
     if (user) {
@@ -25,13 +31,14 @@ export class UserService {
     return result;
   }
 
-  //=
+  //삭제
   async delete({user}) {
     const result = await this.userRepository.softDelete({email :user.email});
     return result.affected ? true : false;
   }
+  //수정
   async update({user,updateUserInput}) {
-    const myUser = await this.userRepository.findOne({where: {email :user.email}});
+    const myUser = await this.findOne({email : user.email});
     const newUser = {...myUser, ...updateUserInput};
     const result = await this.userRepository.save(newUser);
     return result

@@ -24,6 +24,16 @@ export class BoardResolver {
   ) {
     return await this.boardService.findOne({number});
   }
+
+  //내가 쓴 글보기 비밀 글 포함
+  @UseGuards(GqlAuthAccessGuard)
+  @Query(() => [Board])
+  async fetchMyBoards(
+    @CurrentUser() currentUser: any,
+  ) {
+    return await this.boardService.findOneMY({user:currentUser});
+  }
+
 // 보드 생성 (로그인)
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Board)
@@ -41,8 +51,9 @@ export class BoardResolver {
   async updateBoard(
     @Args('updateBoardInput') updateBoardInput: UpdateBoardInput,
     @Args('number') number: number,
+    @CurrentUser() currentUser: any,
   ) {
-    const result = this.boardService.update({ updateBoardInput, number });
+    const result = this.boardService.update({ updateBoardInput, number,user:currentUser });
     return result;
   }
   // 보드 삭제 (로그인) softdelete
@@ -54,5 +65,5 @@ export class BoardResolver {
     const result = this.boardService.delete({ number });
     return result;
   }
-
+  
 }
