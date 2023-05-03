@@ -88,6 +88,8 @@ type ProductTag {
 }
 
 type Query {
+  fetchBoardCategories: [BoardCategory!]!
+  fetchBoardCategory(name: String!): BoardCategory!
   fetchBoards: [Board!]!
   fetchBoard(number: Float!): Board!
   fetchProducts: [Product!]!
@@ -110,8 +112,9 @@ type Mutation {
   updateProduct(productId: String!, updateProductinput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
   createProductCategory(name: String!): ProductCategory!
-  createUser(email: String!, password: String!, name: String!): User!
+  createUser(createUserInput: CreateUserInput!): User!
   deleteUser: String!
+  updateUser(updateUserInput: CreateUserInput!): String!
   createPointTransaction(impUid: String!, amount: Float!): PointTransaction!
   cancelPointTransaction(impUid: String!): PointTransaction!
   styleChatBot(createCompletionDto: CreateCompletionDto!): String!
@@ -162,6 +165,12 @@ input UpdateProductInput {
   productSaleslocationInput: ProductSaleslocationInput
   productCategoryId: String
   productTags: [String!]
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  name: String!
 }
 
 input CreateCompletionDto {

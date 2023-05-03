@@ -12,9 +12,9 @@ import { ElasticsearchModule } from '@nestjs/elasticsearch';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Product, ProductSaleslocation, ProductTag]),
-    ElasticsearchModule.register({
-      node: 'http://elasticsearch:9200',
-    }),
+    // ElasticsearchModule.register({
+    //   node: 'http://elasticsearch:9200',
+    // }),
   ],
   providers: [
     ProductResolver, //

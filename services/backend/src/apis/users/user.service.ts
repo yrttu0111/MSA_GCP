@@ -24,8 +24,16 @@ export class UserService {
     });
     return result;
   }
+
+  //=
   async delete({user}) {
-    const result = await this.userRepository.delete({email :user.email});
-    return result;
+    const result = await this.userRepository.softDelete({email :user.email});
+    return result.affected ? true : false;
+  }
+  async update({user,updateUserInput}) {
+    const myUser = await this.userRepository.findOne({where: {email :user.email}});
+    const newUser = {...myUser, ...updateUserInput};
+    const result = await this.userRepository.save(newUser);
+    return result
   }
 }

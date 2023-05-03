@@ -4,6 +4,7 @@ import { BoardTag } from 'src/apis/boardTag/entities/boardTag.entity';
 import { User } from 'src/apis/users/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   DeleteDateColumn,
   Entity,
   JoinTable,
@@ -45,6 +46,9 @@ export class Board {
   @Field(() => BOARD_PRIVATE)
   status: string;
 
+  @CreateDateColumn()
+  createdAt: Date;
+  
   @DeleteDateColumn()
   deletedAt: Date;
 

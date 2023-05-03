@@ -77,10 +77,10 @@ export class BoardService {
       where: { number: number },
     });
     const newProduct = {
-      ...myBoard,
+      ...myBoard, // 수정되지 않은 다른값까지 모두 객체로 리턴
       id: number,
       ...updateBoardInput,
-    };
+    }; //같은 값이 있으면 위에 건 덮어씌워짐 ->수정한것만 저장됨
     return this.boardRepository.save(newProduct);
   }
   async delete({ number }) {

@@ -14,6 +14,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'myGuard') {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // req.headers.Authorization...
       secretOrKey: process.env.ACCESS_TOKEN_KEY,
       passReqToCallback: true,
+      // context 중 req를 callback으로 넘겨줌
     });
   }
 
