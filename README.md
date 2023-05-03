@@ -1,8 +1,8 @@
 # MSA_GCP
 https://jintakim.shop/
-!!!!!!!!!!!!!!!!!!!!!!!!!!
+중고거래몰 API
 
-
+---
 stack
 
 NestJS, graphQL, RestAPI, MySQL, typeORM, Redis, docker, JWT, passport, GCP(kubernetes, CI/CD, sql, bucket, cloud funcion, DNS), git, jest
