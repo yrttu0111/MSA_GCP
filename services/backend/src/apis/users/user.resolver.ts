@@ -58,6 +58,7 @@ export class UserResolver {
     @CurrentUser() currentUser: ICurrentUser, //
     @Args('updateUserInput') updateUserInput: CreateUserInput,
   ) {
+    
     return await this.userService.update({user:currentUser, updateUserInput});
   }
 

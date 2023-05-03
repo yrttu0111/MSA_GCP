@@ -92,8 +92,11 @@ type Query {
   fetchBoardCategory(name: String!): BoardCategory!
   fetchBoards: [Board!]!
   fetchBoard(number: Float!): Board!
+  fetchMyBoards: [Board!]!
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
+  fetchProductCategories: [ProductCategory!]!
+  fetchProductCategory(name: String!): ProductCategory!
   fetchUser: String!
   findOneByEmail(email: String!): String!
 }

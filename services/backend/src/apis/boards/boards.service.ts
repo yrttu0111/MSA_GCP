@@ -43,6 +43,17 @@ export class BoardService {
 
     return result;
   }
+  findOneMY({user}){
+    const result = this.boardRepository.find({
+      where: { user: user },
+      relations: [
+      'boardCategory',
+      'boardTags',
+      'user'
+    ],
+    });
+    return result;
+  }
   
 
 
@@ -71,11 +82,13 @@ export class BoardService {
     });
     return result;
   }
-  async update({  updateBoardInput, number }) {
+  async update({  updateBoardInput, number, user }) {
     //모든 값을 내보내기 위해 안하면 바뀐값만 리턴됨
-    const myBoard = await this.boardRepository.findOne({
-      where: { number: number },
-    });
+    const myBoard = await this.findOne({number});
+    if(myBoard.user.id !== user.id){
+      // 내가 쓴 글만 수정가능
+      throw new JsonWebTokenError("권한이 없습니다.")
+    }
     const newProduct = {
       ...myBoard, // 수정되지 않은 다른값까지 모두 객체로 리턴
       id: number,

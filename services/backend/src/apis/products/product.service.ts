@@ -37,22 +37,11 @@ export class ProductService {
       where: { id: productId },
       relations: ['productSaleslocation', 'productCategory', 'productTags','user'],
     });
-    // console.log(result);
     return result;
   }
 
   async create({ createProductInput, user }) {
-    //1. 상품만 등록
-    // const result = await this.ProductRepository.save({
-    //   //스프레드 연산자
-    //   ...createProductInput,
-    //   //하나하나 나열 하는 방식
-    //   // name: createProductInput.name,
-    //   // description: createProductInput.description,
-    //   // price: createProductInput.price,
-    // });
-    // 2. 상품과 거래위치를 같이 등록하는경우 2개 테이블
-    // console.log("user id",user.id)
+  
     const {
       productSaleslocationInput,
       productCategoryId,
@@ -92,6 +81,9 @@ export class ProductService {
     const myproduct = await this.ProductRepository.findOne({
       where: { id: productId },
     });
+    if(myproduct.isSoldout){
+      throw new UnprocessableEntityException('이미 판매완료된 상품입니다.');
+    }
     const newProduct = {
       ...myproduct,
       id: productId,
@@ -106,26 +98,11 @@ export class ProductService {
     });
     if (product.isSoldout) {
       throw new UnprocessableEntityException('이미 판매완료된 상품입니다.');
-      // if (product.isSoldout) {
-      //   throw new HttpException(
-      //     '이미 판매완료된 상품입니다.',
-      //     HttpStatus.UNPROCESSABLE_ENTITY,
-      //   );
+     
     }
   }
   async delete({ productId }) {
-    //1. 그냥 삭제
-    // const result = this.ProductRepository.delete({ id: productId });
-    // return (await result).affected ? true : false;
-
-    //소프트딜리트 직접구현 - is deleted
-    // this.ProductRepository.update({id:productId}, {isDeleted: true})
-
-    //3. 소프트 삭제 직접 구현 시간 - deletedAt
-    // this.ProductRepository.update({id:productId}, {deletedAt: new Date()})
-    //4 소프트 삭제 typeorm 사용softRemove
-    // const result = this.ProductRepository.softRemove({ id: productId }); //아이디로만 삭제가능
-    // 5. 소프트 삭제 typeorm 사용softDelete
+    // 소프트 삭제 typeorm 사용softDelete
     const result = await this.ProductRepository.softDelete({ id: productId });
     return result.affected ? true : false;
   }
