@@ -15,7 +15,8 @@ chatGPT API, MSA
 - - MSA구조 nestJS Graphql 서버 nodejs socket 서버 2개 
 
 
-- JWT 토큰을 이용한 로그인 인증, OAuth 를 이용한 소셜 로그인
+
+- JWT 토큰을 이용한 로그인 인증, OAuth를 이용한 소셜 로그인
 - - bcrypt를 이용한 비밀 번호 암호화 
 
 
