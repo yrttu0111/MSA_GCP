@@ -5,13 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { ProductResolver } from './product.resolver';
 import { ProductService } from './product.service';
-import { ProductSubscriber } from './entities/product.subscriber';
 import { ElasticsearchModule } from '@nestjs/elasticsearch';
+import { ProductCategory } from '../productCategory/entities/productCategory.entity';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Product, ProductSaleslocation, ProductTag]),
+    TypeOrmModule.forFeature([Product, ProductSaleslocation, ProductTag, ProductCategory]),
     // ElasticsearchModule.register({
     //   node: 'http://elasticsearch:9200',
     // }),
@@ -19,7 +19,6 @@ import { ElasticsearchModule } from '@nestjs/elasticsearch';
   providers: [
     ProductResolver, //
     ProductService,
-    ProductSubscriber,
   ],
 })
 export class ProductModule {}

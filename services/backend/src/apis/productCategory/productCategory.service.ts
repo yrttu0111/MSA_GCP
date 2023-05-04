@@ -15,7 +15,7 @@ export class ProductCategoryService {
     console.log(result);
     return result;
   }
-
+  
   async findAll() {
     return await this.ProductCategoryRepository.find();
   }

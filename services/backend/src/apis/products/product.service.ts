@@ -11,6 +11,11 @@ import {
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductInput } from './dto/createProduct.input';
+export interface IProductsTagsServiceBulkInsert {
+  names: {
+    name: string;
+  }[];
+}
 
 @Injectable()
 export class ProductService {
@@ -32,7 +37,6 @@ export class ProductService {
     });
   }
   async findOne({ productId }) {
-    console.log(productId);
     const result = await this.ProductRepository.findOne({
       where: { id: productId },
       relations: ['productSaleslocation', 'productCategory', 'productTags','user'],
@@ -40,19 +44,22 @@ export class ProductService {
     return result;
   }
 
-  async create({ createProductInput, user }) {
-  
+
+  async create({ createProductInput, 
+    user 
+  }) {
+    console.log("난",user);
     const {
-      productSaleslocationInput,
+      productSaleslocation,
       productCategoryId,
       productTags,
       ...product
     } = createProductInput;
     const result = await this.ProductSaleslocationRepository.save({
-      ...productSaleslocationInput,
+      ...productSaleslocation,
     });
     const result2 = [];
-    for (let i = 0; i < productTags.length; i++) {
+    for (let i = 0; i < productTags.length; i++) { 
       const tagname = productTags[i].replace('#', ''); //
       //이미 등록된 태그인지 확인
 
@@ -63,7 +70,7 @@ export class ProductService {
         result2.push(prevTag);
       } else {
         const newTag = await this.ProductTagRepository.save({ name: tagname }); 
-        result2.push(newTag);
+        result2.push(newTag); 
       }
     }
 
@@ -71,16 +78,21 @@ export class ProductService {
       ...product,
       productSaleslocation: result, // result 통쨰로 넣기 vs id만 넣기
       productCategory: { id: productCategoryId },
-      user: {id: user.id},
       productTags: result2,
+      user: {id: user.id},
     });
     return result3;
+    
   }
-  async update({ productId, updateProductinput }) {
-    //모든 값을 내보내기 위해 안하면 바뀐값만 리턴됨
-    const myproduct = await this.ProductRepository.findOne({
-      where: { id: productId },
-    });
+
+
+
+
+  async update({ productId, updateProductinput }) { 
+    //모든 값을 내보내기 위해 안하면 바뀐값만 리턴됨 
+    const myproduct = await this.findOne({ productId },
+    );
+    console.log(myproduct)
     if(myproduct.isSoldout){
       throw new UnprocessableEntityException('이미 판매완료된 상품입니다.');
     }

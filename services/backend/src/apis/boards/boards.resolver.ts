@@ -42,7 +42,7 @@ export class BoardResolver {
     @CurrentUser() currentUser: any,
   ) {
     // console.log(createBoardInput)
-    const result = this.boardService.create({ createBoardInput, user : currentUser });
+    const result = await this.boardService.create({ createBoardInput, user : currentUser });
     return result;
   }
   // 보드 수정 (로그인) 
