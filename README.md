@@ -12,15 +12,20 @@ chatGPT API, MSA
 # 기능 구현
 중고 거래몰 backend
 - niginx 를 사용해 reverse proxy 구현
-- bcrypt를 이용한 비밀 번호 암호화
+-- MSA구조 nestJS Graphql 서버 nodejs socket 서버 2개 
 - JWT 토큰을 이용한 로그인 인증, OAuth 를 이용한 소셜 로그인
+-- bcrypt를 이용한 비밀 번호 암호화 
 - redis 블랙리스트를 사용한 로그아웃 처리 
 - RDBMS (MySQL)
+-- TypeORM 사용 
 - 중고상품 crud
+-- 등록 및 수정, 삭제(softdelete), 조회(비밀글, 삭제된 글 제외)
 - 게시판 crud
+-- 등록 및 수정, 삭제 조회(거래완료 된 글 삭제된 글 제외)
+
 - 결제 시스템 포트원(아임포트) 이용. 조회 결제 및 환불 
-- Chat gpt API (옷을 추천해주는 챗봇)  
-- GCP Cloud storage 에 이미지 업로드 (GCP Cloud Function 사용해 이미지 사이즈 관리)
+- Chat gpt API (옷을 추천해 주는 챗봇)
+- ~GCP Cloud storage 에 이미지 업로드 (GCP Cloud Function 사용해 이미지 사이즈 관리)~
 - Socket.IO 
 - ![image](https://user-images.githubusercontent.com/76115198/235073422-4a0fbeda-f045-43bc-b1aa-db92f3db56e5.png)
 
