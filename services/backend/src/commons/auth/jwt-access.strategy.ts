@@ -19,8 +19,6 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'myGuard') {
   }
 
   async validate(req, payload) {
-    // console.log("req:",req);
-    // console.log("payload:",payload);
     const access = req.headers.authorization.replace('Bearer ', '');
     // redis에 저장된 access token이면 UnauthorizedException
     // redis에서 blacklist로 로그아웃을 관리 중 

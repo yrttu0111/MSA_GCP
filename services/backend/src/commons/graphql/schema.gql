@@ -148,7 +148,7 @@ input CreateProductInput {
   name: String!
   description: String!
   price: Int!
-  productSaleslocationInput: ProductSaleslocationInput!
+  productSaleslocation: ProductSaleslocationInput!
   productCategoryId: String!
   productTags: [String!]!
 }
@@ -165,7 +165,7 @@ input UpdateProductInput {
   name: String
   description: String
   price: Int
-  productSaleslocationInput: ProductSaleslocationInput
+  productSaleslocation: ProductSaleslocationInput
   productCategoryId: String
   productTags: [String!]
 }

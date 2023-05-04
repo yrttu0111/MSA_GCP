@@ -45,7 +45,7 @@ export class Product {
 
   @CreateDateColumn()
   createdAt: Date;
-  
+
   @UpdateDateColumn()
   updatedAt: Date;
 
@@ -64,12 +64,10 @@ export class Product {
   @ManyToOne(() => User)
   @Field(() => User)
   user: User;
-
+ 
   //하나의 상품에 여러개의 태그 등록가능, 여러개의 상품에 여러개의 태그 등록가능 
   @JoinTable()
   @Field(() => [ProductTag])
   @ManyToMany(() => ProductTag, (productTags) => productTags.products)
-  productTags: ProductTag[];
-
-  
+  productTags: ProductTag[]; 
 }

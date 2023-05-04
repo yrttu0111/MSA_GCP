@@ -4,7 +4,7 @@ import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { CreateProductInput } from './dto/createProduct.input';
 import { UpdateProductInput } from './dto/updateProduct.input';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { Inject, CACHE_MANAGER, UseGuards } from '@nestjs/common';
+import { Inject, CACHE_MANAGER, UseGuards, HttpException } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { CurrentUser } from 'src/commons/auth/gql-user.param';
 import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
@@ -70,24 +70,26 @@ export class ProductResolver {
     // console.log(result);
     return result;
   }
+
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Product)
-  createProduct(
+  async createProduct(
     @Args('createProductInput') createProductInput: CreateProductInput,
     @CurrentUser() currentUser: any
   ) {
-    console.log(currentUser);
-    const result = this.productService.create({ createProductInput , user : currentUser});
+    const result = await this.productService.create({ createProductInput , 
+      user : currentUser
+    });
     return result;
+    
   }
+  @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => Product)
-  async updateProduct(
-    @Args('productId') productId: string,
+  async updateProduct( 
+    @Args('productId') productId: string, 
     @Args('updateProductinput') updateProductinput: UpdateProductInput,
   ) {
-    console.log('검사전');
     await this.productService.checkSoldout({ productId });
-    console.log('판매중');
     return await this.productService.update({ productId, updateProductinput });
   }
   @Mutation(() => Boolean)
