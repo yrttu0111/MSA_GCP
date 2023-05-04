@@ -12,7 +12,7 @@ chatGPT API, MSA
 # 기능 구현
 중고 거래몰 backend
 - niginx 를 사용해 reverse proxy 구현
--- MSA구조 nestJS Graphql 서버 nodejs socket 서버 2개 
+--- MSA구조 nestJS Graphql 서버 nodejs socket 서버 2개 
 - JWT 토큰을 이용한 로그인 인증, OAuth 를 이용한 소셜 로그인
 -- bcrypt를 이용한 비밀 번호 암호화 
 - redis 블랙리스트를 사용한 로그아웃 처리 
