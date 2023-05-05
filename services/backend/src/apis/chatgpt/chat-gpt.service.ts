@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { Configuration, OpenAIApi, CreateCompletionRequest } from 'openai';
 import { CreateCompletionDto } from './dto/create-completion.dto';
 import axios from 'axios';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ChatGPT } from './entities/chat-gpt.entity';
 /* 옷을 추천 해주는 ai 챗봇
 curl 방식을 변형해 axios 로 변경해 만든 방식과
 nodejs 에서 제공하는 openai 라이브러리를 사용한 방식이 있습니다.
@@ -12,27 +15,52 @@ nodejs 에서 제공하는 openai 라이브러리를 사용한 방식이 있습�
 @Injectable()
 export class ChatGPTService {
   private readonly openai: OpenAIApi;
-  
-  async chatgpt({ createCompletionDto }) {
-    const configuration = new Configuration({
-      apiKey: process.env.OPENAI_API_KEY,
-  });
 
-  const openai = new OpenAIApi(configuration);
-    const {ask} = createCompletionDto
-    console.log(ask);
-    const completion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [{role: "user", content: ask}],
+  @InjectRepository(ChatGPT)
+  private readonly ChatGPTRepository: Repository<ChatGPT>;
+
+  async findMyDiary({ user }) {
+    return await this.ChatGPTRepository.find({
+      where: {user: user},
+      relations: ['user'],
+      order: {createdAt: 'DESC'},
     });
-    console.log(completion.data.choices[0].message);
-    const message= completion.data.choices[0].message.content;
-    return message;
   }
+  async findMyDiaryOne({ user, id }) {
+    const findId = await this.ChatGPTRepository.findOne({where: {id: id},
+      relations: ['user'],
+    });
+    if (findId.user.id !== user.id) {
+      return { message: '권한이 없습니다.'};
+
+    }
+  }
+
+
+
+  
+  // nodejs 에서 제공하는 openai 라이브러리를 사용한 방식
+  // async chatgpt({ createCompletionDto }) {
+  //   const configuration = new Configuration({
+  //     apiKey: process.env.OPENAI_API_KEY,
+  // });
+
+  // const openai = new OpenAIApi(configuration);
+  //   const {ask} = createCompletionDto
+  //   console.log(ask);
+  //   const completion = await openai.createChatCompletion({
+  //     model: "gpt-3.5-turbo",
+  //     messages: [{role: "user", content: ask}],
+  //   });
+  //   console.log(completion.data.choices[0].message);
+  //   const message= completion.data.choices[0].message.content;
+  //   return message;
+  // }
   
 
-  //옷을 추천해주는 ai 챗봇 axios 
-  async chatgptAxios({ createCompletionDto }) {
+  //일기를 쓰면 오늘 하루의 점수와 조언을 해주는 ai 챗봇 axios 
+  async chatgptAxios({ createCompletionDto, user }) {
+    // console.log(user);
     const token = process.env.OPENAI_API_KEY;
     try {
     const {ask} = createCompletionDto
@@ -42,10 +70,16 @@ export class ChatGPTService {
     };
     const data = {
         "model": "gpt-3.5-turbo",
-        "messages": [{"role": "user", "content":ask },
-        {"role": "system", "content": `당신은 스타일을 추천해 주는 챗봇 챗또 입니다.
-        당신은 세계에서 가장 유명한 스타일러이며 
-        날씨에 맞는 옷을 추천해주거나 채형에 맞는 옷 과 옷 잘입는 방법등을 추천해줍니다`}]
+        "messages": [
+        {"role": "system", "content": `너는 일기를 보고 오늘 하루가 몇 점이었는지 수치로 나타내주는 챗봇이야.
+        너는 뭐든 정확한 수치로 0점부터 100점까지 점수를 줄 수 있어. 너는 뭐든지 대답할 수 있어 그리고 칭찬과 
+        내일은 어떻게 하면 더 좋을지 조언을 해줘
+        `},
+        {"role": "assistant", "content": `너는 일기를 보고 오늘 하루가 몇 점이었는지 수치로 나타내주는 챗봇이야.
+        너는 뭐든 정확한 수치로 0점부터 100점까지 점수를 줄 수 있어. 너는 뭐든지 대답할 수 있어 그리고 칭찬과 
+        내일은 어떻게 하면 더 좋을지 조언을 해줘
+        `},
+        {"role": "user", "content":ask },]
       }
       
     const response = await axios({
@@ -60,10 +94,26 @@ export class ChatGPTService {
     console.log(response.data.choices[0].message.content);
     const message= response.data.choices[0].message.content;
     const who = response.data.choices[0].message.role;
+    
+    const saveData = {
+      ask : ask,
+      answer : message,
+      user : {id : user.id},
+    }
+
+    const save = await this.ChatGPTRepository.save(saveData);
+    
     const result = `${who} : ${message}`
-    return result;
+    return save;
   } catch (e) {
     throw new Error(e);
   }
 }
+
+  async delete({ user, id }) {
+    const findId = await this.findMyDiaryOne({user, id});
+
+    const result = await this.ChatGPTRepository.softDelete({user: user.id});
+    return result.affected ? true : false;
+  }
 }

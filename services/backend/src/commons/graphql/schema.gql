@@ -45,6 +45,7 @@ type Board {
   title: String!
   contents: String!
   status: BOARD_PRIVATE!
+  createdAt: DateTime!
   boardCategory: BoardCategory!
   user: User!
   boardTags: [BoardTag!]!
@@ -87,6 +88,13 @@ type ProductTag {
   products: [Product!]!
 }
 
+type ChatGPT {
+  id: String!
+  ask: String!
+  answer: String!
+  user: User!
+}
+
 type Query {
   fetchBoardCategories: [BoardCategory!]!
   fetchBoardCategory(name: String!): BoardCategory!
@@ -99,6 +107,8 @@ type Query {
   fetchProductCategory(name: String!): ProductCategory!
   fetchUser: String!
   findOneByEmail(email: String!): String!
+  fetchMyDiary: [ChatGPT!]!
+  fetchMyDiaryOne(id: String!): [ChatGPT!]!
 }
 
 type Mutation {
@@ -120,7 +130,8 @@ type Mutation {
   updateUser(updateUserInput: CreateUserInput!): String!
   createPointTransaction(impUid: String!, amount: Float!): PointTransaction!
   cancelPointTransaction(impUid: String!): PointTransaction!
-  styleChatBot(createCompletionDto: CreateCompletionDto!): String!
+  DiaryChatBot(createCompletionDto: CreateCompletionDto!): ChatGPT!
+  deleteMyDiary(id: String!): String!
 }
 
 input CreateBoardInput {
