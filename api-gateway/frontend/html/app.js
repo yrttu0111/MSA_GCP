@@ -9,7 +9,6 @@ const submitBtn = document.getElementById('submit-btn');
 
 form.addEventListener('submit', async function(event) { 
   event.preventDefault();
-  // let accessTokenData;
   
   const accessTokenData = await axios.post(
     "http://localhost/graphql",
@@ -28,12 +27,13 @@ form.addEventListener('submit', async function(event) {
   }
   const accessToken = accessTokenData.data.data.restoreAccessToken;
 
-  const diaryContent = diaryInput.value.trim();
+  const diaryContent = diaryInput.value.trim().replace(/\n/g, '\\n');
 
   if (diaryContent === '') {
     alert('일기 내용을 입력해주세요');
     return;
   }
+  console.log(diaryContent)
 
   submitBtn.disabled = true;
   responseDiv.textContent = '읽기짱이 읽고있어요...';

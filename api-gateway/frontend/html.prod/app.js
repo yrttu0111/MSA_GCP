@@ -26,13 +26,12 @@ form.addEventListener('submit', async function(event) {
     alert('로그인 해줘잉.');
   }
 
-  const diaryContent = diaryInput.value.trim();
+  const diaryContent = diaryInput.value.trim().replace(/\n/g, '\\n');
 
   if (diaryContent === '') {
     alert('일기 내용을 입력해줘잉');
     return;
   }
-
   submitBtn.disabled = true;
   responseDiv.textContent = '읽기짱이 읽는중';
   responseDiv.classList.remove('hidden');
