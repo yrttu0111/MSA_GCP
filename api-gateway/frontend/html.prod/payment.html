@@ -19,7 +19,7 @@
       async function requestPay() {
         const amount = document.getElementById("amount").value;
         const accessToken = await axios.post(
-                "http://jintakim.shop/graphql",
+                "https://jintakim.shop/graphql",
                 {
                   query: `
                   mutation{
@@ -51,7 +51,7 @@
               // 결제 성공 시 로직,
               console.log(rsp);
               axios.post(
-                "http://jintakim.shop/graphql",
+                "https://jintakim.shop/graphql",
                 {
                   query: `
                       mutation {

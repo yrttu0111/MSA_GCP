@@ -20,7 +20,7 @@ export class BoardService {
   async findAll() {
     const result = await this.boardRepository.find({
       //삭제되지 않은 글 + 공개된 글만
-      where:{ deletedAt: null, status: "PUBLIC" },
+      where:{ status: "PUBLIC" },
       relations: [
       'boardCategory',
        'boardTags',
@@ -100,5 +100,6 @@ export class BoardService {
     // soft delete - deleteAt 컬럼에 삭제된 날짜가 들어감 실제 삭제 아님
     const result = await this.boardRepository.softDelete({ number: number });
     return result.affected ? true : false;
+    
   }
 }

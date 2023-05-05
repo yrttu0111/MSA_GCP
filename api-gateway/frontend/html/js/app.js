@@ -1,78 +1,80 @@
-// eslint-disable-next-line no-undef
-// import { io } from "socket.io-client";
+const form = document.querySelector('form');
+const diaryInput = document.getElementById('diary');
+const responseDiv = document.getElementById('response');
+const submitBtn = document.getElementById('submit-btn');
 
-const socket = io({
-  path: "/socket/"
-});
 
-const welcome = document.getElementById("welcome");
-const enterForm = welcome.querySelector("form");
-const room = document.getElementById("room");
 
-let roomName;
-
-room.hidden = true;
-
-const addMessage = (message) => {
-  const ul = room.querySelector("ul");
-  const li = document.createElement("li");
-  li.innerText = message;
-  ul.append(li);
-};
-
-const handleNicknameSubmit = (event) => {
+form.addEventListener('submit', async function(event) {
   event.preventDefault();
-  const input = room.querySelector("#name input");
-  socket.emit("nickname", input.value);
-};
 
-const handleMessageSubmit = (event) => {
-  event.preventDefault();
-  const input = room.querySelector("#msg input");
-  const { value } = input;
-  socket.emit("new_message", value, roomName, () => {
-    addMessage(`You: ${value}`);
-  });
-  input.value = "";
-};
-// enterRoom done
-const showRoom = (newCount, user) => {
- 
-  room.hidden = false;
-  welcome.hidden = true;
-  const h3 = room.querySelector("h3");
-  h3.innerText = `Room ${roomName}(${newCount})`;
-  addMessage(`${user} joined the room`);
-  const msgForm = room.querySelector("#msg");
-  const nameForm = room.querySelector("#name");
-  msgForm.addEventListener("submit", handleMessageSubmit);
-  nameForm.addEventListener("submit", handleNicknameSubmit);
-};
-
-const handleRoomSubmit = (event) => {
-  const roomNameInput = enterForm.querySelector("#roomName");
-  const nickNameInput = enterForm.querySelector("#name");
-  event.preventDefault();
-  socket.emit("enter_room", roomNameInput.value, nickNameInput.value, showRoom);
-  roomName = roomNameInput.value;
-  roomNameInput.value = "";
-  const changeNameInput = room.querySelector("#name input");
-  changeNameInput.value = nickNameInput.value;
-};
-
-enterForm.addEventListener("submit", handleRoomSubmit);
+  const accessToken = await axios.post(
+    "http://localhost/graphql",
+    {
+      query: `
+      mutation{
+      restoreAccessToken
+      }
+      `,
+    },
+    { withCredentials: true }
+  
+  );
+  console.log("act=", accessToken)
+  if(accessToken === null){
+    alert('로그인이 필요합니다.');
+  }
 
 
-socket.on("welcome", (user, newCount) => {
-  const h3 = room.querySelector("h3");
-  h3.innerText = `Room ${roomName}(${newCount})`;
-  addMessage(`${user} joined the room`);
+  const diaryContent = diaryInput.value.trim();
+
+  if (diaryContent === '') {
+    alert('일기 내용을 입력해주세요');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  responseDiv.textContent = '일기를 분석하는 중입니다...';
+  responseDiv.classList.remove('hidden');
+
+  try {
+    const response = await axios.post(
+      "http://localhost/graphql",
+      {
+        query: `
+        mutation{
+          DiaryChatBot(createCompletionDto:{
+            ask:"아침 일찍 일어나서 밥먹고 공부를 했어. 그리고 열심히 코딩중~!"
+          }){
+            id
+            ask
+            answer
+            user{
+              id
+            }
+          }
+        }
+        `,
+      },
+      {
+        headers: {
+          Authorization:
+            `Bearer ${accessToken} `,
+        },
+      }
+    );
+    // axios.post('/api/diary', { content: diaryContent });
+
+    const {answer, ask} = response.data.data.DiaryChatBot;
+
+    responseDiv.textContent = 
+    `
+    ${answer}, 
+    ${ask}
+    `;
+  } catch (error) {
+    responseDiv.textContent = '일기 분석에 실패했습니다. 다시 시도해주세요.';
+  }
+
+  submitBtn.disabled = false;
 });
-
-socket.on("bye", (user, newCount) => {
-  const h3 = room.querySelector("h3");
-  h3.innerText = `Room ${roomName}(${newCount})`;
-  addMessage(`${user} left!`);
-});
-
-socket.on("new_message", addMessage);

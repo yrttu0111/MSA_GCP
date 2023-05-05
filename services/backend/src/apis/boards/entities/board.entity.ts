@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Length } from 'class-validator';
 import { BoardCategory } from 'src/apis/boardCategory/entities/boardCategory.entity';
 import { BoardTag } from 'src/apis/boardTag/entities/boardTag.entity';
 import { User } from 'src/apis/users/entities/user.entity';
@@ -19,6 +20,7 @@ export enum BOARD_PRIVATE {
   PUBLIC = 'PUBLIC',
   PRIVATE = 'PRIVATE',
 }
+//graphql에서 enum으로 사용하기 위해 등록
 registerEnumType(BOARD_PRIVATE, {
   name: 'BOARD_PRIVATE',
 });
@@ -34,6 +36,9 @@ export class Board {
   @Field(() => String)
   writer: String;
 
+
+  //검색을 위해 50자 이내로 제한 -> token 절약
+  @Length(1, 50)
   @Column()
   @Field(() => String)
   title: String;
@@ -46,7 +51,9 @@ export class Board {
   @Field(() => BOARD_PRIVATE)
   status: string;
 
+  
   @CreateDateColumn()
+  @Field(() => Date)
   createdAt: Date;
   
   @DeleteDateColumn()
