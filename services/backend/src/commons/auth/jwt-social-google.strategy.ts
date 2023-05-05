@@ -11,7 +11,7 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientID: process.env.OAUTH_GOOGLE_ID,
       clientSecret: process.env.OAUTH_GOOGLE_SECRET,
       callbackURL: process.env.OAUTH_GOOGLEURL,
-      scope: ['email', 'profile'],
+      scope: ['email', 'profile','name'],
     });
   }
 
@@ -22,7 +22,6 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
       email: profile.emails[0].value,
       password: profile.id,
       name: profile.displayName,
-      age: 0,
     };
   }
 }

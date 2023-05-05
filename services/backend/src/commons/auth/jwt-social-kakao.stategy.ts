@@ -9,7 +9,7 @@ export class JwtKakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
       clientID: process.env.OAUTH_KAKAO_ID,
       clientSecret: process.env.OAUTH_KAKAO_SECRET,
       callbackURL: process.env.OAUTH_KAKAOURL,
-      scope: ['account_email', 'profile_nickname'],
+      scope: ['account_email', 'profile_nickname' ],
     });
   }
 
@@ -20,7 +20,6 @@ export class JwtKakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
       email: profile._json.kakao_account.email,
       password: profile.id,
       name: profile.displayName,
-      age: 0,
     };
   }
 }

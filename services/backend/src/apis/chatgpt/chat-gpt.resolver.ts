@@ -43,6 +43,7 @@ export class ChatGPTResolver {
     @CurrentUser() currentUser: ICurrentUser,
     @Args('id') id: string,
   ){
+    console.log(currentUser)
     return await this.chatGPTService.delete({user : currentUser, id})
     
   }

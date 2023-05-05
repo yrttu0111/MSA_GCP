@@ -17,7 +17,7 @@ export class AuthService {
 //refreshToken 발행
   async setRefreshToken({ user, res }) {
     const refreshToken = this.jwtService.sign(
-      { email: user.email, sub: user.id },
+      { email: user.email, sub: user.id ,name: user.name},
       { secret: process.env.REFRESH_TOKEN_KEY, expiresIn: '2w' },
     );
    
@@ -30,7 +30,7 @@ export class AuthService {
 //accessToken 발행
   getAccessToken({ user }) {
     return this.jwtService.sign(
-      { email: user.email, sub: user.id },
+      { email: user.email, sub: user.id, name: user.name },
       { secret: process.env.ACCESS_TOKEN_KEY, expiresIn: '1h' },
     );
   }
