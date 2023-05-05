@@ -1,7 +1,10 @@
 # MSA_GCP
 https://jintakim.shop/
 
-중고거래몰 API
+# 읽기짱 봇
+일기를 쓰면 오늘 하루가 어땠는지 chat-gpt가 점수를 매겨주고 조언과 응원을 해줍니다.
+
+추가로 중고 거래 api와 게시판 기능이 있습니다. 이 기능 들은 백엔드 api 만 있습니다.
 
 ---
 stack
@@ -25,6 +28,9 @@ chatGPT API, MSA
 
 - RDBMS (MySQL)
 - - TypeORM 사용 
+
+- 읽기짱 봇
+- - 일기 쓰기 삭제 조회 . 일기를 쓰면 chat gpt가 오늘 하루를 점수 매기고 응원과 조언을 해줍니다.
 
 
 - 중고상품 crud
