@@ -50,9 +50,11 @@ chatGPT API, MSA
 
 
 - Socket.IO 
-- ![image](https://user-images.githubusercontent.com/76115198/235073422-4a0fbeda-f045-43bc-b1aa-db92f3db56e5.png)
 
-#- testcode
+
+---
+
+![화면 캡처 2023-05-05 192156](https://user-images.githubusercontent.com/76115198/236434126-f63f5cb4-096f-4385-ac1b-383f9d7c5d0b.png)
 
 
 # 참고 
