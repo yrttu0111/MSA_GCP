@@ -72,7 +72,7 @@ form.addEventListener('submit', async function(event) {
     ${answer}
     `;
   } catch (error) {
-    responseDiv.textContent = '어랍숑. 다시 시도해주세요.';
+    responseDiv.textContent = '어랍숑. 다시 시도해주세요. ㅠㅠ';
   }
 
   submitBtn.disabled = false;
