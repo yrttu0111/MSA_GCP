@@ -1,3 +1,6 @@
+![DALL·E 2023-05-05 19 32 22 - a pencil a diary-reading bot](https://user-images.githubusercontent.com/76115198/236435668-6476f99a-d705-4a5b-b321-f869a1923d9d.png)
+
+
 
 https://jintakim.shop/
 
