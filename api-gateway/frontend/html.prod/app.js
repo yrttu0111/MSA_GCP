@@ -9,7 +9,7 @@ form.addEventListener('submit', async function(event) {
   event.preventDefault();
 
   const accessTokenData = await axios.post(
-    "https://jintakim.shop//graphql",
+    "https://jintakim.shop/graphql",
     {
       query: `
       mutation{
