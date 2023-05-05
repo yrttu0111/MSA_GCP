@@ -1,3 +1,5 @@
+
+
 const form = document.querySelector('form');
 const diaryInput = document.getElementById('diary');
 const responseDiv = document.getElementById('response');
@@ -5,9 +7,10 @@ const submitBtn = document.getElementById('submit-btn');
 
 
 
-form.addEventListener('submit', async function(event) {
+form.addEventListener('submit', async function(event) { 
   event.preventDefault();
-
+  // let accessTokenData;
+  
   const accessTokenData = await axios.post(
     "http://localhost/graphql",
     {
@@ -20,11 +23,10 @@ form.addEventListener('submit', async function(event) {
     { withCredentials: true }
   
   );
-  const accessToken = accessTokenData.data.data.restoreAccessToken;
-  if(accessToken === null){
+  if (accessTokenData.data.data === null){
     alert('로그인이 필요합니다.');
-    return;
   }
+  const accessToken = accessTokenData.data.data.restoreAccessToken;
 
   const diaryContent = diaryInput.value.trim();
 
@@ -34,7 +36,7 @@ form.addEventListener('submit', async function(event) {
   }
 
   submitBtn.disabled = true;
-  responseDiv.textContent = '일기를 분석하는 중입니다...';
+  responseDiv.textContent = '읽기짱이 읽고있어요...';
   responseDiv.classList.remove('hidden');
 
   try {
@@ -44,7 +46,7 @@ form.addEventListener('submit', async function(event) {
         query: `
         mutation{
           DiaryChatBot(createCompletionDto:{
-            ask:"아침 일찍 일어나서 밥먹고 공부를 했어. 그리고 열심히 코딩중~!"
+            ask:"${diaryContent}"
           }){
             id
             ask
@@ -69,8 +71,8 @@ form.addEventListener('submit', async function(event) {
 
     responseDiv.textContent = 
     `
-    ${answer}, 
-    ${ask}
+
+    ${answer}
     `;
   } catch (error) {
     responseDiv.textContent = '일기 분석에 실패했습니다. 다시 시도해주세요.';
