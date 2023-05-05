@@ -39,7 +39,7 @@ form.addEventListener('submit', async function(event) {
 
   try {
     const response = await axios.post(
-      "https://jintakim.shop//graphql",
+      "https://jintakim.shop/graphql",
       {
         query: `
         mutation{
