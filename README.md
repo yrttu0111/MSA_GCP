@@ -1,5 +1,3 @@
-![DALL·E 2023-05-05 19 32 22 - a pencil a diary-reading bot](https://user-images.githubusercontent.com/76115198/236435668-6476f99a-d705-4a5b-b321-f869a1923d9d.png)
-
 
 
 https://jintakim.shop/
@@ -7,7 +5,10 @@ https://jintakim.shop/
 # 읽기짱 봇
 일기를 쓰면 오늘 하루가 어땠는지 chat-gpt가 점수를 매겨주고 조언과 응원을 해줍니다.
 
-추가로 중고 거래 api와 게시판 기능이 있습니다. 이 기능 들은 백엔드 api 만 있습니다.
+추가로 중고 거래 api와 게시판 기능이 있습니다. 이두두 기능 들은 백엔드 api 만 있습니다.
+
+![DALL·E 2023-05-05 19 32 22 - a pencil a diary-reading bot](https://user-images.githubusercontent.com/76115198/236435668-6476f99a-d705-4a5b-b321-f869a1923d9d.png)
+
 
 ---
 stack
