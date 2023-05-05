@@ -23,18 +23,18 @@ form.addEventListener('submit', async function(event) {
   console.log (accessTokenData.data.data.restoreAccessToken);
   const accessToken = accessTokenData.data.data.restoreAccessToken;
   if (accessTokenData.data.data === null){
-    alert('로그인이 필요합니다.');
+    alert('로그인 해줘잉.');
   }
 
   const diaryContent = diaryInput.value.trim();
 
   if (diaryContent === '') {
-    alert('일기 내용을 입력해주세요');
+    alert('일기 내용을 입력해줘잉');
     return;
   }
 
   submitBtn.disabled = true;
-  responseDiv.textContent = '일기를 분석하는 중입니다...';
+  responseDiv.textContent = '읽기짱이 읽는중';
   responseDiv.classList.remove('hidden');
 
   try {
@@ -69,11 +69,10 @@ form.addEventListener('submit', async function(event) {
 
     responseDiv.textContent = 
     `
-    ${answer}, 
-    ${ask}
+    ${answer}
     `;
   } catch (error) {
-    responseDiv.textContent = '일기 분석에 실패했습니다. 다시 시도해주세요.';
+    responseDiv.textContent = '어랍숑. 다시 시도해주세요.';
   }
 
   submitBtn.disabled = false;
