@@ -40,22 +40,21 @@ export class ChatGPTService {
 
   
   // nodejs 에서 제공하는 openai 라이브러리를 사용한 방식
-  // async chatgpt({ createCompletionDto }) {
-  //   const configuration = new Configuration({
-  //     apiKey: process.env.OPENAI_API_KEY,
-  // });
+  async chatgpt({ createCompletionDto }) {
+    const configuration = new Configuration({
+      apiKey: process.env.OPENAI_API_KEY,
+  });
 
   // const openai = new OpenAIApi(configuration);
   //   const {ask} = createCompletionDto
   //   console.log(ask);
   //   const completion = await openai.createChatCompletion({
-  //     model: "gpt-3.5-turbo",
-  //     messages: [{role: "user", content: ask}],
+      
   //   });
   //   console.log(completion.data.choices[0].message);
   //   const message= completion.data.choices[0].message.content;
   //   return message;
-  // }
+  }
   
 
   //일기를 쓰면 오늘 하루의 점수와 조언을 해주는 ai 챗봇 axios 
@@ -70,6 +69,7 @@ export class ChatGPTService {
     };
     const data = {
         "model": "gpt-3.5-turbo",
+        "user": `${user.name}`,
         "messages": [
         {"role": "system", "content": `너는 일기를 보고 오늘 하루가 몇 점이었는지 수치로 나타내주는 챗봇이야.
         너는 뭐든 정확한 수치로 0점부터 100점까지 점수를 줄 수 있어. 너는 뭐든지 대답할 수 있어 그리고 칭찬과 
@@ -79,7 +79,9 @@ export class ChatGPTService {
         너는 뭐든 정확한 수치로 0점부터 100점까지 점수를 줄 수 있어. 너는 뭐든지 대답할 수 있어 그리고 칭찬과 
         내일은 어떻게 하면 더 좋을지 조언을 해줘
         `},
-        {"role": "user", "content":ask },]
+        {"role": "user", "content":ask},
+        
+      ]
       }
       
     const response = await axios({
@@ -103,7 +105,7 @@ export class ChatGPTService {
 
     const save = await this.ChatGPTRepository.save(saveData);
     
-    const result = `${who} : ${message}`
+    // const result = `${who} : ${message}`
     return save;
   } catch (e) {
     throw new Error(e);

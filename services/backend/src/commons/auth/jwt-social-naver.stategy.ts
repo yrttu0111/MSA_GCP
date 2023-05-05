@@ -1,6 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
 
-import { Strategy, Profile } from 'passport-naver';
+import { Strategy, Profile, } from 'passport-naver';
 
 //네이버 oauth2.0 strategy
 // naver에서 제공하는 passport strategy를 사용한다.
@@ -10,7 +10,7 @@ export class JwtNaverStrategy extends PassportStrategy(Strategy, 'naver') {
       clientID: process.env.OAUTH_NAVER_ID,
       clientSecret: process.env.OAUTH_NAVER_SECRET,
       callbackURL: process.env.OAUTH_NAVERURL,
-      scope: ['email', 'profile'],
+      scope: ['email', 'profile','nickname'],
     });
   }
 
@@ -22,8 +22,6 @@ export class JwtNaverStrategy extends PassportStrategy(Strategy, 'naver') {
       password: profile.id,
       // name: profile.displayName,
       name: profile.emails[0].value,
-
-      age: 0,
     };
   }
 }

@@ -6,8 +6,8 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 export interface ICurrentUser {
   id: string;
   email: string;
-
-  name?: string;
+  name: string;
+  
   password?: string;
   age?: number;
 }

@@ -8,8 +8,8 @@ const submitBtn = document.getElementById('submit-btn');
 form.addEventListener('submit', async function(event) {
   event.preventDefault();
 
-  const accessToken = await axios.post(
-    "http://localhost/graphql",
+  const accessTokenData = await axios.post(
+    "https://jintakim.shop//graphql",
     {
       query: `
       mutation{
@@ -20,11 +20,11 @@ form.addEventListener('submit', async function(event) {
     { withCredentials: true }
   
   );
-  console.log("act=", accessToken)
+  const accessToken = accessTokenData.data.data.restoreAccessToken;
   if(accessToken === null){
     alert('로그인이 필요합니다.');
+    return;
   }
-
 
   const diaryContent = diaryInput.value.trim();
 
@@ -39,7 +39,7 @@ form.addEventListener('submit', async function(event) {
 
   try {
     const response = await axios.post(
-      "http://localhost/graphql",
+      "https://jintakim.shop//graphql",
       {
         query: `
         mutation{

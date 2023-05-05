@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Diaries</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* 스크롤 가능한 영역의 스타일 */
+      .scrollable {
+        height: 400px;
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scrollable">
+      <ul id="diary-list"></ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      
+
+      // GraphQL API에 쿼리를 전송하는 함수
+      const fetchDiaries = async () => {
+           // GraphQL API endpoint URL
+      const url = 'http://localhost/graphql';
+
+const accessTokenData = await axios.post(
+        url,
+        {
+          query: `
+          mutation{
+          restoreAccessToken
+          }
+          `,
+        },
+        { withCredentials: true }
+      
+      );
+      const accessToken = accessTokenData.data.data.restoreAccessToken;
+      if(accessToken === null){
+    alert('로그인이 필요합니다.');
+    return;
+  }
+
+        try {
+          const response = await axios.post(url, 
+          {
+                  query: `
+                  query {
+                    fetchMyDiary {
+                        id
+                        ask
+                        answer
+                        user {
+                        email
+                        name
+                        }
+                    }
+                    }
+
+                  `,
+                },
+                {
+                  headers: {
+                    Authorization:
+                      `Bearer ${accessToken} `,
+                  },
+                });
+          const diaries = response.data.data.fetchMyDiary;
+          const diaryList = document.querySelector('#diary-list');
+          // 받아온 일기 데이터를 HTML 요소로 변환하여 리스트에 추가
+          diaries.forEach((diary) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+              <h2>${diary.ask}</h2>
+              <p>${diary.answer}</p>
+              <p>By ${diary.user.name} (${diary.user.email})</p>
+            `;
+            diaryList.appendChild(li);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+    };
+
+
+      // 페이지 로딩 시 일기 데이터를 불러오도록 설정
+      window.onload = fetchDiaries;
+    </script>
+
+     <!-- 홈페이지로 이동하는 버튼 -->
+     <button onclick="location.href='http://localhost/diaryW.html'">일기 쓰기</button>
+  </body>
+</html>

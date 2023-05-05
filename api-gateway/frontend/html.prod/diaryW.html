@@ -15,14 +15,21 @@
   <body>
     <div class="container">
       <h1>오늘의 일기를 작성해주세요</h1>
+      <pre>
+        로그인이 필요합니다.
+        test계정은 id :test@test pw:test 입니다.
+      </pre>
+      <button onclick="location.href='https://jintakim.shop/social-login.html'">로그인하기</button>
       <form>
         <label for="diary">일기 내용:</label>
         <textarea id="diary" name="diary" rows="10" cols="50"></textarea>
         <button id="submit-btn">일기 제출하기</button>
       </form>
       <div id="response" class="hidden"></div>
-      <button onclick="location.href='http://localhost/diaryMy.html'">내 일기 보기</button>
+      
     </div>
+    <button onclick="location.href='https://jintakim.shop/diaryMy.html'">내 일기 보기</button>
+    <button onclick="location.href='https://jintakim.shop/main.html'">메인페이지</button>
     <script src="/app.js"></script>
   </body>
 </html>

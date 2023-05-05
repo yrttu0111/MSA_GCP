@@ -17,9 +17,10 @@
     ></script>
     <script>
       async function requestPay() {
+        url = "https://jintakim.shop/graphql";
         const amount = document.getElementById("amount").value;
-        const accessToken = await axios.post(
-                "https://jintakim.shop/graphql",
+        const accessTokenData = await axios.post(
+                url,
                 {
                   query: `
                   mutation{
@@ -28,8 +29,9 @@
                   `,
                 },
                 { withCredentials: true }
+              
               );
-
+              const accessToken = accessTokenData.data.data.restoreAccessToken;
         const IMP = window.IMP; // 생략 가능
         IMP.init("imp57644580"); // Example: imp00000000
         IMP.request_pay(
