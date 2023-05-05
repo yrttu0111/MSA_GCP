@@ -10,7 +10,7 @@ export class JwtNaverStrategy extends PassportStrategy(Strategy, 'naver') {
       clientID: process.env.OAUTH_NAVER_ID,
       clientSecret: process.env.OAUTH_NAVER_SECRET,
       callbackURL: process.env.OAUTH_NAVERURL,
-      scope: ['email', 'profile','nickname'],
+      scope: ['email', 'profile',],
     });
   }
 
