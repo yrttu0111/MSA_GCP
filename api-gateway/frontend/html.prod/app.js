@@ -20,10 +20,10 @@ form.addEventListener('submit', async function(event) {
     { withCredentials: true }
   
   );
+  console.log (accessTokenData.data.data.restoreAccessToken);
   const accessToken = accessTokenData.data.data.restoreAccessToken;
-  if(accessToken === null){
+  if (accessTokenData.data.data === null){
     alert('로그인이 필요합니다.');
-    return;
   }
 
   const diaryContent = diaryInput.value.trim();
@@ -44,7 +44,7 @@ form.addEventListener('submit', async function(event) {
         query: `
         mutation{
           DiaryChatBot(createCompletionDto:{
-            ask:"아침 일찍 일어나서 밥먹고 공부를 했어. 그리고 열심히 코딩중~!"
+            ask:"${diaryContent}"
           }){
             id
             ask
