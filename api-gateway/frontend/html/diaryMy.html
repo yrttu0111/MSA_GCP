@@ -26,7 +26,7 @@
       const fetchDiaries = async () => {
            // GraphQL API endpoint URL
       const url = 'http://localhost/graphql';
-
+try{
 const accessTokenData = await axios.post(
         url,
         {
@@ -39,10 +39,11 @@ const accessTokenData = await axios.post(
         { withCredentials: true }
       
       );
+    
       const accessToken = accessTokenData.data.data.restoreAccessToken;
       if(accessToken === null){
-    alert('로그인이 필요합니다.');
-    return;
+        alert('로그인이 필요합니다.');
+        return;
   }
 
         try {
@@ -84,8 +85,10 @@ const accessTokenData = await axios.post(
         } catch (error) {
           console.error(error);
         }
+    }catch(error){
+      console.error(error);
     };
-
+      };
 
       // 페이지 로딩 시 일기 데이터를 불러오도록 설정
       window.onload = fetchDiaries;
