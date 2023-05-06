@@ -24,6 +24,7 @@ form.addEventListener('submit', async function(event) {
   );
   if (accessTokenData.data.data === null){
     alert('로그인이 필요합니다.');
+    window.location.href = "http://localhost/social-login.html"
   }
   const accessToken = accessTokenData.data.data.restoreAccessToken;
 

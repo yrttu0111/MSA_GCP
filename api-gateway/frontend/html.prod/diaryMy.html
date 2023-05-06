@@ -42,7 +42,7 @@ const accessTokenData = await axios.post(
       const accessToken = accessTokenData.data.data.restoreAccessToken;
       if(accessToken === null){
     alert('로그인이 필요합니다.');
-    return;
+    window.location.href = "http://jintakim.shop/social-login.html"
   }
 
         try {
