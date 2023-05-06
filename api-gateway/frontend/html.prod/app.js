@@ -24,6 +24,7 @@ form.addEventListener('submit', async function(event) {
   const accessToken = accessTokenData.data.data.restoreAccessToken;
   if (accessTokenData.data.data === null){
     alert('로그인 해줘잉.');
+    window.location.href = "http://jintakim.shop/social-login.html"
   }
 
   const diaryContent = diaryInput.value.trim().replace(/\n/g, '\\n');
