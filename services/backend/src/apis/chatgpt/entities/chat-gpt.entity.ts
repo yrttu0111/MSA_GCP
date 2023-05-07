@@ -22,6 +22,7 @@ export class ChatGPT {
     user: User;
 
     @CreateDateColumn()
+    @Field(() => Date)
     createdAt: Date;
 
     @DeleteDateColumn()

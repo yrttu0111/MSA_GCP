@@ -49,19 +49,19 @@ const accessTokenData = await axios.post(
           const response = await axios.post(url, 
           {
                   query: `
-                  query {
-                    fetchMyDiary {
+                    query {
+                      fetchMyDiary {
                         id
                         ask
                         answer
                         user {
-                        email
-                        name
+                          email
+                          name
                         }
+                        createdAt
+                      }
                     }
-                    }
-
-                  `,
+                    `,
                 },
                 {
                   headers: {
@@ -78,6 +78,7 @@ const accessTokenData = await axios.post(
               <h2>${diary.ask}</h2>
               <p>${diary.answer}</p>
               <p>By ${diary.user.name} (${diary.user.email})</p>
+              <p>${diary.createdAt}</p>
             `;
             diaryList.appendChild(li);
           });

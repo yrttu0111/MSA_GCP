@@ -93,6 +93,7 @@ type ChatGPT {
   ask: String!
   answer: String!
   user: User!
+  createdAt: DateTime!
 }
 
 type Query {
