@@ -1,10 +1,11 @@
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { ChatGPTService } from "./chat-gpt.service";
-import { CreateCompletionDto } from "./dto/create-completion.dto";
+import { createChatInput } from "./dto/createChat.input";
 import { UseGuards } from "@nestjs/common";
 import { GqlAuthAccessGuard } from "src/commons/auth/gql-auth.guard";
 import { CurrentUser, ICurrentUser } from "src/commons/auth/gql-user.param";
 import { ChatGPT } from "./entities/chat-gpt.entity";
+import { UpdateChatInput } from "./dto/updateChat.input";
 
 @Resolver()
 export class ChatGPTResolver {
@@ -13,27 +14,29 @@ export class ChatGPTResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => ChatGPT)
   async DiaryChatBot(
-    @Args('createCompletionDto') createCompletionDto: CreateCompletionDto,
+    @Args('createChatInput') createChatInput: createChatInput,
     @CurrentUser() currentUser: ICurrentUser,
     
   ) {
-    return this.chatGPTService.chatgptAxios({createCompletionDto, user : currentUser});
+    return this.chatGPTService.create({createChatInput, user : currentUser});
   }
 
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => [ChatGPT])
   async fetchMyDiary(
+    
     @CurrentUser() currentUser: ICurrentUser,
   ){
     return await this.chatGPTService.findMyDiary({user : currentUser});
   }
   @UseGuards(GqlAuthAccessGuard)
-  @Query(() => [ChatGPT])
+  @Query(() => ChatGPT)
   async fetchMyDiaryOne(
     @CurrentUser() currentUser: ICurrentUser,
     @Args('id') id: string,
   ){
-    return await this.chatGPTService.findMyDiaryOne({user : currentUser, id})
+    const result = await this.chatGPTService.findMyDiaryOne({user : currentUser, id})
+    return result
   }
 
 
@@ -45,6 +48,19 @@ export class ChatGPTResolver {
   ){
     console.log(currentUser)
     return await this.chatGPTService.delete({user : currentUser, id})
-    
+  }
+  @UseGuards(GqlAuthAccessGuard)
+  @Mutation(() => ChatGPT)
+  async updateMyDiary(
+    @CurrentUser() currentUser: ICurrentUser,
+    @Args('id') id: string,
+    @Args('updateChatInput') updateChatInput: UpdateChatInput,
+  ){
+    const {ask} = updateChatInput
+    if(ask === ''){
+      throw new Error('내용을 입력해주세요')
+    }
+    const result = await this.chatGPTService.update({user : currentUser, id, updateChatInput})
+    return result
   }
 }

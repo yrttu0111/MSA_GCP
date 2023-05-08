@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+
+import { BadRequestException, Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { Configuration, OpenAIApi, CreateCompletionRequest } from 'openai';
-import { CreateCompletionDto } from './dto/create-completion.dto';
 import axios from 'axios';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -27,20 +27,16 @@ export class ChatGPTService {
     });
   }
   async findMyDiaryOne({ user, id }) {
-    const findId = await this.ChatGPTRepository.findOne({where: {id: id},
+    return await this.ChatGPTRepository.findOne({where: {id: id , user: user},
       relations: ['user'],
     });
-    if (findId.user.id !== user.id) {
-      return { message: '권한이 없습니다.'};
-
-    }
   }
 
 
 
   
   // nodejs 에서 제공하는 openai 라이브러리를 사용한 방식
-  async chatgpt({ createCompletionDto }) {
+  async chatgpt({ createChatInput }) {
     const configuration = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
   });
@@ -58,11 +54,11 @@ export class ChatGPTService {
   
 
   //일기를 쓰면 오늘 하루의 점수와 조언을 해주는 ai 챗봇 axios 
-  async chatgptAxios({ createCompletionDto, user }) {
-    // console.log(user);
+  async chatgptAxios({ createChatInput, user }) {
+    
     const token = process.env.OPENAI_API_KEY;
     try {
-    const {ask} = createCompletionDto
+    const {ask} = createChatInput
     const headers = {
     'Authorization': `Bearer ${token}`,
      "Content-Type": "application/json"
@@ -94,7 +90,19 @@ export class ChatGPTService {
       
       );
     console.log(response.data.choices[0].message.content);
-    const message= response.data.choices[0].message.content;
+
+    
+    // const result = `${who} : ${message}`
+    return response;
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+ async create({ createChatInput, user }) {
+  console.log(createChatInput)
+  const {ask} = createChatInput
+  const response = await this.chatgptAxios({createChatInput, user});
+  const message= response.data.choices[0].message.content;
     const who = response.data.choices[0].message.role;
     
     const saveData = {
@@ -104,18 +112,35 @@ export class ChatGPTService {
     }
 
     const save = await this.ChatGPTRepository.save(saveData);
-    
-    // const result = `${who} : ${message}`
     return save;
-  } catch (e) {
-    throw new Error(e);
-  }
-}
+
+
+ }
 
   async delete({ user, id }) {
     const findId = await this.findMyDiaryOne({user, id});
 
     const result = await this.ChatGPTRepository.softDelete({user: user.id});
     return result.affected ? true : false;
+  }
+  
+  async update({ user, id, updateChatInput }) {
+    const findId = await this.findMyDiaryOne({user, id});
+    if (findId == null) {
+      throw new BadRequestException('해당하는 일기가 없습니다.');
+    }
+    const {ask} = updateChatInput
+    const response = await this.chatgptAxios({createChatInput: {ask}, user});
+    const message= response.data.choices[0].message.content;
+    const who = response.data.choices[0].message.role;
+    
+    const saveData = {
+      ...findId,
+      ask : ask,
+      answer : message,
+      user : {id : user.id},
+    }
+    const result = await this.ChatGPTRepository.save(saveData);
+    return result
   }
 }

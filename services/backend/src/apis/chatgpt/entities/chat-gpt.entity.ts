@@ -29,6 +29,7 @@ export class ChatGPT {
     deletedAt: Date;
 
     @UpdateDateColumn()
+    @Field(() => Date)
     updatedAt: Date;
 
     
