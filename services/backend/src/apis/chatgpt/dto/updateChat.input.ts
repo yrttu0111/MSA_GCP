@@ -1,5 +1,5 @@
 import { InputType, PartialType } from "@nestjs/graphql";
-import { CreateCompletionDto } from "./create-completion.dto";
+import { CreateCompletionDto } from "./createChat.input";
 
 
 @InputType()

@@ -1,6 +1,6 @@
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { ChatGPTService } from "./chat-gpt.service";
-import { CreateCompletionDto } from "./dto/create-completion.dto";
+import { createChatInput } from "./dto/createChat.input";
 import { UseGuards } from "@nestjs/common";
 import { GqlAuthAccessGuard } from "src/commons/auth/gql-auth.guard";
 import { CurrentUser, ICurrentUser } from "src/commons/auth/gql-user.param";
@@ -14,7 +14,7 @@ export class ChatGPTResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => ChatGPT)
   async DiaryChatBot(
-    @Args('createChatInput') createChatInput: CreateCompletionDto,
+    @Args('createChatInput') createChatInput: createChatInput,
     @CurrentUser() currentUser: ICurrentUser,
     
   ) {
