@@ -132,7 +132,7 @@ type Mutation {
   updateUser(updateUserInput: CreateUserInput!): String!
   createPointTransaction(impUid: String!, amount: Float!): PointTransaction!
   cancelPointTransaction(impUid: String!): PointTransaction!
-  DiaryChatBot(createChatInput: CreateCompletionDto!): ChatGPT!
+  DiaryChatBot(createChatInput: createChatInput!): ChatGPT!
   deleteMyDiary(id: String!): String!
   updateMyDiary(id: String!, updateChatInput: UpdateChatInput!): ChatGPT!
 }
@@ -190,7 +190,7 @@ input CreateUserInput {
   name: String!
 }
 
-input CreateCompletionDto {
+input createChatInput {
   ask: String!
 }
 

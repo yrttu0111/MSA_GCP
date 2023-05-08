@@ -1,6 +1,6 @@
 import { InputType, PartialType } from "@nestjs/graphql";
-import { CreateCompletionDto } from "./createChat.input";
+import { createChatInput } from "./createChat.input";
 
 
 @InputType()
-export class UpdateChatInput extends PartialType(CreateCompletionDto) {}
+export class UpdateChatInput extends PartialType(createChatInput) {}

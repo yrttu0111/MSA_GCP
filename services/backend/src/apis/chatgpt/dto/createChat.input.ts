@@ -1,7 +1,7 @@
 import { Field, InputType } from "@nestjs/graphql";
 
 @InputType()
-export class CreateCompletionDto {
+export class createChatInput {
     @Field(() => String)
     ask: string;
     
