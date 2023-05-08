@@ -1,12 +1,10 @@
-import { Response } from 'express';
+
 import { BadRequestException, Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { Configuration, OpenAIApi, CreateCompletionRequest } from 'openai';
-import { CreateChatInput } from './dto/createChat.input';
 import axios from 'axios';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChatGPT } from './entities/chat-gpt.entity';
-import { ExceptionMessages } from '@google-cloud/storage/build/src/storage';
 /* 옷을 추천 해주는 ai 챗봇
 curl 방식을 변형해 axios 로 변경해 만든 방식과
 nodejs 에서 제공하는 openai 라이브러리를 사용한 방식이 있습니다.
