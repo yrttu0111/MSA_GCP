@@ -33,7 +33,7 @@ services:
     image: mysql:latest
     environment:
       MYSQL_DATABASE: 'mydocker03'
-      MYSQL_ROOT_PASSWORD: 'ASDasd123!'
+      MYSQL_ROOT_PASSWORD: 'root'
     ports:
       - 3306:3306
 

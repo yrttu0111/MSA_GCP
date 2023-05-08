@@ -46,7 +46,7 @@ form.addEventListener('submit', async function(event) {
       {
         query: `
         mutation{
-          DiaryChatBot(createCompletionDto:{
+          DiaryChatBot(createChatInput:{
             ask:"${diaryContent}"
           }){
             id
