@@ -11,16 +11,17 @@ import { UpdateChatInput } from "./dto/updateChat.input";
 export class ChatGPTResolver {
   constructor(private readonly chatGPTService: ChatGPTService) {}
 
+  // 일기 등록
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => ChatGPT)
   async DiaryChatBot(
     @Args('createChatInput') createChatInput: createChatInput,
     @CurrentUser() currentUser: ICurrentUser,
-    
   ) {
     return this.chatGPTService.create({createChatInput, user : currentUser});
   }
 
+  // 일기 조회 로그인 되어있는 유저의 일기만 조회 
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => [ChatGPT])
   async fetchMyDiary(
@@ -29,6 +30,7 @@ export class ChatGPTResolver {
   ){
     return await this.chatGPTService.findMyDiary({user : currentUser});
   }
+  // 특정 일기 조회 로그인 되어있는 유저의 일기만 조회 
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => ChatGPT)
   async fetchMyDiaryOne(
@@ -39,7 +41,7 @@ export class ChatGPTResolver {
     return result
   }
 
-
+//일기 삭제 softdelete
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => String)
   async deleteMyDiary(
@@ -49,6 +51,7 @@ export class ChatGPTResolver {
     console.log(currentUser)
     return await this.chatGPTService.delete({user : currentUser, id})
   }
+  //일기 수정
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => ChatGPT)
   async updateMyDiary(

@@ -6,7 +6,7 @@ import { UpdateProductInput } from './dto/updateProduct.input';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { Inject, CACHE_MANAGER, UseGuards, HttpException } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { CurrentUser } from 'src/commons/auth/gql-user.param';
+import { CurrentUser, ICurrentUser } from 'src/commons/auth/gql-user.param';
 import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
 
 @Resolver()
@@ -75,7 +75,7 @@ export class ProductResolver {
   @Mutation(() => Product)
   async createProduct(
     @Args('createProductInput') createProductInput: CreateProductInput,
-    @CurrentUser() currentUser: any
+    @CurrentUser() currentUser: ICurrentUser
   ) {
     const result = await this.productService.create({ createProductInput , 
       user : currentUser

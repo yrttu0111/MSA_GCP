@@ -4,7 +4,7 @@ import { UserService } from '../users/user.service';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
 import { GqlAuthRefreshGuard } from 'src/commons/auth/gql-auth.guard';
-import { CurrentUser } from 'src/commons/auth/gql-user.param';
+import { CurrentUser, ICurrentUser } from 'src/commons/auth/gql-user.param';
 
 @Resolver()
 export class AuthResolver {
@@ -66,7 +66,7 @@ export class AuthResolver {
   //refreshToken으로 accessToken 발행
   @UseGuards(GqlAuthRefreshGuard)
   @Mutation(() => String)
-  restoreAccessToken(@CurrentUser() currentUser: any) {
+  restoreAccessToken(@CurrentUser() currentUser: ICurrentUser) {
     return this.authService.getAccessToken({ user: currentUser });
   }
 
