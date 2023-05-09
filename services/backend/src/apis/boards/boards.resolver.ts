@@ -1,10 +1,10 @@
 import {  UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BoardService } from './boards.service';
 import { CreateBoardInput } from './dto/createBoard.input';
 import { Board } from './entities/board.entity';
 import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
-import { CurrentUser } from 'src/commons/auth/gql-user.param';
+import { CurrentUser, ICurrentUser } from 'src/commons/auth/gql-user.param';
 import { UpdateBoardInput } from './dto/updateBoard.input';
 @Resolver()
 export class BoardResolver {
@@ -29,8 +29,11 @@ export class BoardResolver {
   @UseGuards(GqlAuthAccessGuard)
   @Query(() => [Board])
   async fetchMyBoards(
-    @CurrentUser() currentUser: any,
+    @CurrentUser() currentUser: ICurrentUser,
+    // @Context() context: any,
   ) {
+    // const currentUser = context.req.user;
+    // console.log(currentUser)
     return await this.boardService.findOneMY({user:currentUser});
   }
 
@@ -39,7 +42,7 @@ export class BoardResolver {
   @Mutation(() => Board)
   async createBoard(
     @Args('createBoardInput') createBoardInput: CreateBoardInput,
-    @CurrentUser() currentUser: any,
+    @CurrentUser() currentUser: ICurrentUser,
   ) {
     // console.log(createBoardInput)
     const result = await this.boardService.create({ createBoardInput, user : currentUser });
@@ -51,7 +54,7 @@ export class BoardResolver {
   async updateBoard(
     @Args('updateBoardInput') updateBoardInput: UpdateBoardInput,
     @Args('number') number: number,
-    @CurrentUser() currentUser: any,
+    @CurrentUser() currentUser: ICurrentUser,
   ) {
     const result = this.boardService.update({ updateBoardInput, number,user:currentUser });
     return result;

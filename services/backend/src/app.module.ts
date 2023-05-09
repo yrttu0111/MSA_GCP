@@ -35,7 +35,7 @@ import { ChatGPTModule } from './apis/chatgpt/chat-gpt.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'src/commons/graphql/schema.gql',
-      context: ({ req, res }) => ({ req, res }),
+      context: ({ req, res }) => ({ req, res }), // req 기본 적으로 들어옴 res는 작성해줘야함
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
