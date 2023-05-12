@@ -92,7 +92,7 @@ export class ChatGPTService {
   
       
       );
-    console.log(response.data.choices[0].message.content);
+    // console.log(response.data.choices[0].message.content);
 
     
     // const result = `${who} : ${message}`
@@ -107,7 +107,7 @@ export class ChatGPTService {
   const {ask} = createChatInput
   const response = await this.chatgptAxios({createChatInput, user});
   const message= response.data.choices[0].message.content;
-    const who = response.data.choices[0].message.role;
+    // const who = response.data.choices[0].message.role;
     
     const saveData = {
       ask : ask,
@@ -123,7 +123,10 @@ export class ChatGPTService {
   // 일기를 삭제하는 함수
   async delete({ user, id }) {
     const findId = await this.findMyDiaryOne({user, id});
-
+    // 일기와 유저가 일치하는지 확인
+    if (findId == null) {
+      throw new BadRequestException('해당하는 일기가 없습니다.');
+    }
     const result = await this.ChatGPTRepository.softDelete({user: user.id});
     return result.affected ? true : false;
   }

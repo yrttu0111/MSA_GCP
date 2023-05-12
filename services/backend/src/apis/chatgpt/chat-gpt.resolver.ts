@@ -1,3 +1,8 @@
+/* 챗봇 읽기짱 구현 resolver
+일기 등록 조회 수정 삭제 가능
+
+*/
+
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { ChatGPTService } from "./chat-gpt.service";
 import { createChatInput } from "./dto/createChat.input";
@@ -48,7 +53,7 @@ export class ChatGPTResolver {
     @CurrentUser() currentUser: ICurrentUser,
     @Args('id') id: string,
   ){
-    console.log(currentUser)
+    // console.log(currentUser)
     return await this.chatGPTService.delete({user : currentUser, id})
   }
   //일기 수정
