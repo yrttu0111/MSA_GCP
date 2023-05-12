@@ -32,8 +32,7 @@ export class BoardResolver {
     @CurrentUser() currentUser: ICurrentUser,
     // @Context() context: any,
   ) {
-    // const currentUser = context.req.user;
-    // console.log(currentUser)
+    // const currentUser : ICurrentUser = context.req.user;
     return await this.boardService.findOneMY({user:currentUser});
   }
 
