@@ -35,8 +35,8 @@ chatGPT API, MSA
 - RDBMS (MySQL)
 - - TypeORM 사용 
 
-- 읽기짱 봇
-- - 일기 쓰기 삭제 조회 . 일기를 쓰면 chat gpt가 오늘 하루를 점수 매기고 응원과 조언을 해줍니다.
+- 읽기짱 봇 crud
+- - 일기 쓰기 삭제 조회정수정. 일기를 쓰면 chat gpt가 오늘 하루를 점수 매기고 응원과 조언을 해줍니다.
 
 
 - 중고상품 crud
