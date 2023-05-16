@@ -82,7 +82,7 @@ export class PointTransactionService {
         user: currentUser,
         status,
       });
-      await this.pointTransactionRepository.save(pointTransaction); //이거 안하고 위에 바로 save 해도 같음
+      // await this.pointTransactionRepository.save(pointTransaction); //이거 안하고 위에 바로 save 해도 같음
       await queryRunner.manager.save(pointTransaction);
       // throw new Error('강제로 에러 발생!!!'); // 추가
       // 2. 유저의  찾아오기
